@@ -1,0 +1,15 @@
+/.idea
+/.vscode
+*.log
+.env
+.phpstorm.meta.php
+.constant
+public/install.lock
+public/404.html
+public/static/download/*
+public/uploads/*
+public/phpExcel/*
+app/controller/api/Test.php
+public/protocol.html
+view
+
