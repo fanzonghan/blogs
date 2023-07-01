@@ -1,11 +1,12 @@
 <?php
 declare (strict_types = 1);
 
-namespace app;
+namespace xiaofan\basic;
 
 use think\App;
 use think\exception\ValidateException;
 use think\Validate;
+use think\facade\View;
 
 /**
  * 控制器基础类
@@ -52,7 +53,16 @@ abstract class BaseController
 
     // 初始化
     protected function initialize()
-    {}
+    {
+        $menus = [
+            ['id'=>1,'name'=>'标题'],
+            ['id'=>2,'name'=>'标题'],
+            ['id'=>3,'name'=>'标题'],
+            ['id'=>4,'name'=>'标题'],
+            ['id'=>5,'name'=>'标题'],
+        ];
+        $this->assign('menus',$menus);
+    }
 
     /**
      * 验证数据
@@ -91,4 +101,32 @@ abstract class BaseController
         return $v->failException(true)->check($data);
     }
 
+    /**
+     * 解析和获取模板内容
+     * @param string $template
+     * @return string
+     * @throws \Exception
+     */
+    protected function fetch(string $template = '')
+    {
+        return View::fetch($template);
+    }
+
+    /**
+     * 模板变量赋值
+     * @param $name
+     * @param null $value
+     */
+    protected function assign($name, $value = null){
+        return View::assign($name,$value);
+    }
+
+    /**
+     * 设置标题
+     * @param $title
+     * @return string
+     */
+    protected function setTitle($title){
+        return View::fetch('title',$title);
+    }
 }

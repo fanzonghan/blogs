@@ -13,11 +13,6 @@ class AppService extends Service
 {
     public function register()
     {
-        // 服务注册
-//        $this->commands([
-//            'build' => command\Build::class,
-//        ]);
-
         $this->app->bind([
             'json' => Json::class,
         ]);

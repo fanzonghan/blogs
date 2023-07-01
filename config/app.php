@@ -12,11 +12,14 @@ return [
     'with_route'       => true,
     // 是否启用事件
     'with_event'       => true,
+    'app_express'       => true,
     // 自动多应用模式
     'auto_multi_app'   => true,
     // 默认时区
     'default_timezone' => 'Asia/Shanghai',
 
+    // 设置默认应用名称
+    'default_app' => 'index',
     // 应用映射（自动多应用模式有效）
     'app_map'          => [],
     // 域名绑定（自动多应用模式有效）
