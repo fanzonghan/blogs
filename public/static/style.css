@@ -12,7 +12,7 @@ p{ margin-bottom: 10px;}
 /* page */
 *{ -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box}
 *,:after,:before{ -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing:border-box}
-.page{ padding-top: 120px;}
+.page{ padding-top: 110px;}
 .page-bd{ position: relative; margin-right: auto; margin-left: auto;}
 .page-bd:before,.page-bd:after,.row:before,.row:after,.clearfix:before, .clearfix:after{ display: table; content: " "; clear: both;}
 @media (min-width: 1024px){ .page-bd{ width: 768px;}}
@@ -170,7 +170,6 @@ tbody>tr>td,tbody>tr>th,tfoot>tr>td,tfoot>tr>th,thead>tr>td,thead>tr>th{ border:
 @media (max-width: 1024px){
 	h1{ font-size:22px;}
 	h3{ font-size:16px;}
-	.page{ padding-top: 45%;}
 	.m-hidden{ display: none !important;}
 	.tzt-header{ padding: 0 15px;}
 	.tzt-header_bd .icon,.tzt-header_ft .icon{ margin-left: 15px;}

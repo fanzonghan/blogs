@@ -4,9 +4,8 @@
 namespace app\index\controller;
 
 use app\services\ArticleServices;
-use app\services\BlogrollServices;
 use think\App;
-use think\facade\View;
+use think\Exception;
 use xiaofan\basic\BaseController;
 
 /**
@@ -28,12 +27,17 @@ class Index extends BaseController
      * @throws \Exception
      */
     public function index(){
-        /** @var BlogrollServices $BlogrollServices */
-        $BlogrollServices = app()->make(BlogrollServices::class);
         /** @var ArticleServices $ArticleService */
         $ArticleService = app()->make(ArticleServices::class);
-        $this->assign('article_list',$ArticleService->index());
-        $this->assign('blogroll',$BlogrollServices->list());//友情链接
+        $page = $this->request->param('page',1);
+        $limit = $this->request->param('limit',10);
+        $where = [
+            ['status','=',1]
+        ];
+        $res = $ArticleService->list($where,$page,$limit);
+        $this->assign('article_list',$res['list']);
+        $this->assign('total',$res['total']);
+        $this->assign('page',$page);
         return $this->fetch();
     }
 
@@ -43,6 +47,20 @@ class Index extends BaseController
      * @throws \Exception
      */
     public function search(){
+        /** @var ArticleServices $ArticleService */
+        $ArticleService = app()->make(ArticleServices::class);
+        $keyword = $this->request->param('keyword','');
+        if(empty($keyword)) throw new Exception('不能为空');
+        $page = $this->request->param('page',1);
+        $limit = $this->request->param('limit',10);
+        $where = [
+            ['status','=',1],
+            ['title','like','%'. $keyword .'%']
+        ];
+        $res = $ArticleService->list($where,$page,$limit);
+        $this->assign('article_list',$res['list']);
+        $this->assign('total',$res['total']);
+        $this->assign('page',$page);
         return $this->fetch();
     }
 

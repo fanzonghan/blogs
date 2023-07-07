@@ -25,7 +25,18 @@ class Article extends BaseModel
      */
     protected $name = 'article';
 
+    //关联分类 一对一
     public function category(){
-        return $this->hasMany(Category::class,'id','category_id');
+        return $this->hasOne(Category::class,'id','category_id');
+    }
+
+    //关联文章详情
+    public function articleDescription(){
+        return $this->hasOne(ArticleDescription::class,'id','description');
+    }
+
+    //关联用户表
+    public function user(){
+        return $this->hasOne(User::class,'id','uid');
     }
 }

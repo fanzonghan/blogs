@@ -12,4 +12,4 @@ public/phpExcel/*
 app/controller/api/Test.php
 public/protocol.html
 view
-
+/runtime/

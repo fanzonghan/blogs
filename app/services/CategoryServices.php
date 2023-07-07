@@ -3,6 +3,7 @@
 
 namespace app\services;
 
+use app\model\Category;
 use xiaofan\basic\BaseServices;
 
 /**
@@ -13,5 +14,16 @@ use xiaofan\basic\BaseServices;
  */
 class CategoryServices extends BaseServices
 {
+    public function __construct(Category $category)
+    {
+        $this->model = $category;
+    }
 
+    public function list(){
+        $list = $this->model->where('status',1)->where('pid',0)->order('sort desc')->field('id,name')->select();
+        foreach ($list as &$item){
+            $item['z_cate'] = $this->model->where('status',1)->where('pid',$item['id'])->order('sort desc')->field('id,name')->select();
+        }
+        return $list;
+    }
 }

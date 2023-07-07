@@ -1,5 +1,9 @@
 <?php
 // 应用公共文件
+
+use app\services\BlogrollServices;
+use app\services\CategoryServices;
+
 const DS = '/';
 
 if (!function_exists('sys_config')) {
@@ -15,5 +19,19 @@ if (!function_exists('sys_config')) {
             return $default;
         $sysConfig = \app\model\SystemConfig::where('name',$name)->find();
         return $sysConfig['value'];
+    }
+}
+if(!function_exists('blogroll_list')){
+    function blogroll_list(){
+        /** @var BlogrollServices $BlogrollServices */
+        $BlogrollServices = app()->make(BlogrollServices::class);
+        return $BlogrollServices->list();//友情链接
+    }
+}
+if(!function_exists('menus')){
+    function menus(){
+        /** @var CategoryServices $CategoryServices */
+        $CategoryServices = app()->make(BlogrollServices::class);
+        return $CategoryServices->list();//分类
     }
 }
