@@ -11,5 +11,6 @@ public/uploads/*
 public/phpExcel/*
 app/controller/api/Test.php
 public/protocol.html
+public/updates
 view
 /runtime/
