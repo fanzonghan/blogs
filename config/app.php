@@ -3,6 +3,8 @@
 // | 应用设置
 // +----------------------------------------------------------------------
 
+use think\facade\Env;
+
 return [
     // 应用地址
     'app_host'         => env('app.host', ''),
@@ -28,10 +30,10 @@ return [
     'deny_app_list'    => [],
 
     // 异常页面的模板文件
-    'exception_tmpl'   => app()->getRootPath() . 'public/exception.tpl',
-
+//    'exception_tmpl'   => app()->getRootPath() . 'public/exception.tpl',
+    'exception_tmpl'         => app()->getThinkPath() . 'tpl/think_exception.tpl',
     // 错误显示信息,非调试模式有效
     'error_message'    => '页面错误！请稍后再试～',
     // 显示错误信息
-    'show_error_msg'   => false,
+    'show_error_msg'   => true,
 ];

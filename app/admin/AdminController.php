@@ -5,6 +5,7 @@ namespace app\admin;
 
 use think\App;
 use think\facade\Cache;
+use think\facade\Log;
 use xiaofan\basic\BaseController;
 
 /**
@@ -15,22 +16,12 @@ use xiaofan\basic\BaseController;
  */
 class AdminController extends BaseController
 {
+    protected $adminInfo;
     public function __construct(App $app)
     {
         parent::__construct($app);
         $this->app     = $app;
         $this->request = $this->app->request;
-        $name = Request()->controller();
-        $yz = [
-            'Login'
-        ];
-        if(!in_array($name, $yz)){
-            if($this->request->rootUrl()){
-                if(empty(Cache::get('adminInfo'))){
-                    $this->error("请登录后操作",[],'/admin/login');
-                }
-            }
-        }
         // 控制器初始化
         $this->initialize();
     }

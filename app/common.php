@@ -31,7 +31,7 @@ if(!function_exists('blogroll_list')){
 if(!function_exists('menus')){
     function menus(){
         /** @var CategoryServices $CategoryServices */
-        $CategoryServices = app()->make(BlogrollServices::class);
+        $CategoryServices = app()->make(CategoryServices::class);
         return $CategoryServices->list();//分类
     }
 }

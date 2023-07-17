@@ -3,8 +3,8 @@
 
 namespace app\index\controller;
 
+use app\index\IndexController;
 use think\App;
-use xiaofan\basic\BaseController;
 
 /**
  * @description: 神兽保佑 永无bug
@@ -12,7 +12,7 @@ use xiaofan\basic\BaseController;
  * @date 2023/7/4 1:38
  * @version 1.0
  */
-class Feedback extends BaseController
+class Feedback extends IndexController
 {
     public function __construct(App $app)
     {

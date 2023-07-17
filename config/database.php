@@ -13,10 +13,10 @@ return [
     'auto_timestamp'  => true,
 
     // 时间字段取出后的默认时间格式
-    'datetime_format' => 'Y-m-d H:i:s',
+    'datetime_format' => 'Y-m-d H:i',
 
-    // 时间字段配置 配置格式：create_time,update_time
-    'datetime_field'  => '',
+    // 时间字段配置
+    'datetime_field'  => 'create_time,update_time',
 
     // 数据库连接配置信息
     'connections'     => [

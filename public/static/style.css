@@ -106,7 +106,7 @@ tbody>tr>td,tbody>tr>th,tfoot>tr>td,tfoot>tr>th,thead>tr>td,thead>tr>th{ border:
 .tzt-media-box_hd{ -webkit-box-flex: 1; -webkit-flex: 1; flex: 1; min-width: 0;}
 .tzt-media-box_desc{ margin-bottom: 10px; color: var(--tzt-FG-1);}
 .tzt-media-box_time{ color: var(--tzt-FG-1);}
-.tzt-media-box_bd{ width: 200px; margin-left: 20px;}
+.tzt-media-box_bd{ width: 100px; margin-left: 20px;}
 .tzt-media-box_bd img{ max-width: 100%;}
 
 /* article */

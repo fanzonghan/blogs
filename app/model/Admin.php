@@ -24,4 +24,5 @@ class Admin extends BaseModel
      * @var string
      */
     protected $name = 'admin';
+
 }

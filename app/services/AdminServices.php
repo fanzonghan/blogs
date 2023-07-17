@@ -22,9 +22,10 @@ class AdminServices extends BaseServices
     public function login($username,$password){
         $userInfo = $this->model->where('account',$username)->where('is_del',0)->find();
         if($userInfo){
+            $userInfo = $userInfo->toArray();
             if($userInfo['password'] == md5($password)){
-                Cache::set('adminInfo', $userInfo);
-                return '登录成功';
+                Cache::set('adminInfo', $userInfo,3600);
+                return true;
             }else{
                 throw new \Exception("账号或密码错误");
             }

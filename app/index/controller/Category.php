@@ -3,10 +3,10 @@
 
 namespace app\index\controller;
 
+use app\index\IndexController;
 use app\services\ArticleServices;
 use think\App;
 use think\Exception;
-use xiaofan\basic\BaseController;
 
 /**
  * @description: 神兽保佑 永无bug
@@ -14,7 +14,7 @@ use xiaofan\basic\BaseController;
  * @date 2023/6/16 23:21
  * @version 1.0
  */
-class Category extends BaseController
+class Category extends IndexController
 {
     public function __construct(App $app)
     {
