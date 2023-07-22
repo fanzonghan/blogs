@@ -1,0 +1,139 @@
+{extend name="base" /}
+{block name="main"}
+<div style="padding: 16px;">
+    <table class="layui-hide" id="test" lay-filter="test"></table>
+</div>
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="refresh">刷新</button>
+    </div>
+</script>
+
+<script type="text/html" id="barDemo">
+    <div class="layui-clear-space">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-xs" lay-event="del">删除</a>
+    </div>
+</script>
+<style>
+    .layui-table-cell{
+        overflow:visible;
+        text-overflow:inherit;
+        white-space:normal;
+        height: auto !important;
+        word-break: break-all;
+    }
+</style>
+{/block}
+{block name="js"}
+<script>
+    layui.use(['table', 'dropdown'], function () {
+        var table = layui.table;
+        var dropdown = layui.dropdown;
+
+        // 创建渲染实例
+        table.render({
+            elem: '#test',
+            url: 'list', // 此处为静态模拟数据，实际使用时需换成真实接口
+            toolbar: '#toolbarDemo',
+            defaultToolbar: ['filter', 'exports', 'print', {
+                title: '提示',
+                layEvent: 'LAYTABLE_TIPS',
+                icon: 'layui-icon-tips'
+            }],
+            page: true,
+            cols: [[
+                {type: 'checkbox',},
+                {field: 'id', title: 'ID', width: 80},
+                {
+                    field: 'img', title: '封面', width: 180, templet: function (res) {
+                        return '<img src="' + res.img + '" />';
+                    }
+                },
+                {field: 'title', title: '标题', minWidth: 180},
+                {
+                    field: 'category', title: '分类', width: 180, templet: function (res) {
+                        return '分类一';
+                    }
+                },
+                {field: 'userInfo', title: '作者', width: 150,templet: function (res) {
+                    return res.user.nickname;
+                }},
+                {field: 'browse_num', title: '浏览量', width: 150},
+                {field: 'like_num', title: '点赞量', width: 150},
+                {field: 'status', title: '状态', width: 150,templet: function (res) {
+                        return '正常';
+                    }},
+                {field: 'create_time', title: '添加时间', width: 150},
+                {fixed: 'right', title: '操作', width: 134, minWidth: 125, toolbar: '#barDemo'}
+            ]]
+            ,parseData: function(res){ //res 即为原始返回的数据
+                return {
+                    "code": res.code, //解析接口状态
+                    "msg": res.msg, //解析提示文本
+                    "count": res.data.total, //解析数据长度
+                    "data": res.data.list //解析数据列表
+                };
+            },
+            done: function(res, curr, count){
+                //动态监听表头高度变化，冻结行跟着改变高度
+                $(".layui-table-header tr").resize(function () {
+                    $(".layui-table-header  tr").each(function (index, val) {
+                        $($(".layui-table-fixed .layui-table-header table tr")[index]).height($(val).height());
+                    });
+                });
+                //初始化高度，使得冻结行表头高度一致
+                $(".layui-table-header tr").each(function (index, val) {
+                    $($(".layui-table-fixed .layui-table-header table tr")[index]).height($(val).height());
+                });
+                //动态监听表体高度变化，冻结行跟着改变高度
+                $(".layui-table-body tr").resize(function () {
+                    $(".layui-table-body  tr").each(function (index, val) {
+                        $($(".layui-table-fixed .layui-table-body table tr")[index]).height($(val).height());
+                    });
+                });
+                //初始化高度，使得冻结行表体高度一致
+                $(".layui-table-body tr").each(function (index, val) {
+                    $($(".layui-table-fixed .layui-table-body table tr")[index]).height($(val).height());
+                });
+
+            },
+            error: function (res, msg) {
+                console.log(res, msg)
+            }
+        });
+
+        // 工具栏事件
+        table.on('toolbar(test)', function (obj) {
+            var id = obj.config.id;
+            var checkStatus = table.checkStatus(id);
+            var othis = lay(this);
+            switch (obj.event) {
+                case 'refresh':
+                    table.reload('test');
+                    break;
+                case 'LAYTABLE_TIPS':
+                    break;
+            }
+            ;
+        });
+        // 触发单元格工具事件
+        table.on('tool(test)', function (obj) { // 双击 toolDouble
+            var data = obj.data; // 获得当前行数据
+            // console.log(obj)
+            if (obj.event === 'edit') {
+                layer.open({
+                    type: 2,
+                    area: ['100%', '100%'],
+                    content: 'edit?id=' + data.id,
+                    yes: function(index, layero){
+                        table.reload('test');
+                    }
+                });
+            } else if (obj.event === 'del') {
+
+            }
+        });
+    });
+</script>
+{/block}

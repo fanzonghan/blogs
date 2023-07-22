@@ -1,0 +1,217 @@
+{extend name="base" /}
+{block name="main"}
+<form class="layui-form">
+    <div class="layui-form-item">
+        <label class="layui-form-label">本章标题</label>
+        <div class="layui-input-block" style="width: 40%;">
+            <input type="text" name="title" required lay-verify="required" placeholder="请输入文章标题" value="{$info.title}" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">简介</label>
+        <div class="layui-input-block" style="width: 40%;">
+            <textarea name="alias" placeholder="请输入简介" class="layui-textarea">{$info.alias}</textarea>
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">分类</label>
+        <div class="layui-input-block" style="width: 40%;">
+            <select name="category_id" lay-verify="required">
+                <option value="">请选择</option>
+                {foreach $category as $item}
+                    <optgroup label="{$item.name}">
+                        {foreach $item.z_cate as $val}
+                            <option value="{$val.id}" {$info.category_id == $val.id ? 'selected=""' : ''}>{$val.name}</option>
+                        {/foreach}
+                    </optgroup>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">标签</label>
+        <div class="layui-input-block">
+            <el-select v-model="value1" multiple placeholder="请选择" @change="onSelect">
+                <el-option
+                        v-for="item in options"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                </el-option>
+            </el-select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">封面图</label>
+        <div class="layui-upload-drag" id="update">
+            <div id="uploadMsg" class="{$info.img?'layui-hide':''}">
+                <i class="layui-icon"></i>
+                <p>点击上传，或将文件拖拽到此处</p>
+            </div>
+            <input id="surfacePlot" value="{$info.img}">
+            <div class="{$info.img??'layui-hide'}" id="uploadView">
+                <img src="{$info.img}" alt="上传成功后渲染" style="max-width: 196px">
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">详情</label>
+        <div style="padding-left: 120px">
+            <div id="toolbar-container"></div>
+            <div id="editor-container" style="height: 500px"></div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+        </div>
+    </div>
+</form>
+<input style="display: none" id="tagList" value="{$tagList}">
+<input style="display: none" id="tags" value="{$tags}">
+<style>
+
+</style>
+{/block}
+{block name="js"}
+<script>
+    var value1 = JSON.parse($('#tags').val());
+    console.log(value1)
+    var tagList = JSON.parse($('#tagList').val());
+    var app = new Vue({
+        el: '#app',
+        data: {
+            options: tagList,
+            value1: [1],
+        },
+        methods: {
+            onSelect(res) {
+                value1 = res;
+            }
+        }
+    });
+    layui.use(['form', 'upload'], function () {
+        var form = layui.form;
+        var upload = layui.upload;
+        //提交
+        form.on('submit(formDemo)', function (data) {
+            data.field.tags = value1.toString();
+            data.field.img = $('#surfacePlot').val();
+            data.field.desc = editor.getHtml();
+            data.field.id = {$info.id};
+            console.log(data.field)
+            $.ajax('',{
+                type:'post',
+                data:data.field,
+                success:function (res) {
+                    layer.msg(res.msg,function (res) {
+                        var index = parent.layer.getFrameIndex(window.name); // 先得到当前 iframe 层的索引
+                        parent.layer.close(index); // 再执行关闭
+                    });
+                },
+                error:function (err) {
+                    layer.msg('系统开小车了');
+                }
+            })
+            return false;
+        });
+        //上传
+        upload.render({
+            elem: '#update'
+            , url: '/api/upload/uploads' //此处用的是第三方的 http 请求演示，实际使用时改成您自己的上传接口即可。
+            , field: 'upload-image'
+            , done: function (res) {
+                layer.msg('上传成功');
+                layui.$('#uploadView').removeClass('layui-hide').find('img').attr('src', res.data.url);
+                layui.$('#uploadMsg').addClass('layui-hide');
+                $('#surfacePlot').val(res.data.url);
+                console.log(res)
+            }
+        });
+    });
+    const {createEditor, createToolbar} = window.wangEditor;
+
+    const editorConfig = {
+        placeholder: '填写文章内容',
+        onChange(editor) {
+            const html = editor.getHtml();
+            console.log('内容', html);
+        },
+        MENU_CONF: {
+            insertLink: {
+                checkLink: customCheckLinkFn, // 也支持 async 函数
+                parseLinkUrl: customParseLinkUrl, // 也支持 async 函数
+            },
+            editLink: {
+                checkLink: customCheckLinkFn, // 也支持 async 函数
+                parseLinkUrl: customParseLinkUrl, // 也支持 async 函数
+            }
+        }
+    };
+    let maxFileSize = 100 * 1024 * 1024; // 大小限制
+    //编辑器图片上传
+    editorConfig.MENU_CONF['uploadImage'] = {
+        fieldName: 'upload-image',
+        maxFileSize: maxFileSize, // 大小限制
+        server: '/api/upload/uploads',
+        // 上传进度的回调函数
+        onProgress(progress) {
+            console.log('progress', progress)
+        },
+        // 单个文件上传失败
+        onFailed(file, res) {           // JS 语法
+            console.log(`${file.name} 上传失败`, res)
+        },
+        customInsert(res, insertFn) {                  // JS 语法
+            if (res.status == 200) {
+                insertFn(res.data.url, res.data.url, res.data.url)
+            }
+        },
+        // 上传错误，或者触发 timeout 超时
+        onError(file, err, res) {               // JS 语法
+            console.log(`${file.name} 上传出错`, err, res)
+        },
+    };
+    //编辑器视频上传
+    editorConfig.MENU_CONF['uploadVideo'] = {
+        // 上传视频的配置
+        server: '/api/upload/video',
+        fieldName: 'upload-video',
+        maxFileSize: maxFileSize, // 大小限制
+        timeout: 15 * 1000, // 15 秒
+        // 单个文件上传失败
+        onFailed(file, res) {          // JS 语法
+            console.log(`${file.name} 上传失败`, res)
+        },
+        // 上传错误，或者触发 timeout 超时
+        onError(file, err, res) {               // JS 语法
+            console.log(`${file.name} 上传出错`, err, res)
+        },
+        // 自定义插入视频
+        customInsert(res, insertFn) {                  // JS 语法
+            // res 即服务端的返回结果
+            // 从 res 中找到 url poster ，然后插入视频
+            insertFn(res.data.url, res.data.url)
+        },
+    }
+    const editor = createEditor({
+        selector: '#editor-container',
+        html: '{$info.description|raw}',
+        config: editorConfig,
+        mode: 'default', // or 'simple'
+    });
+
+    const toolbarConfig = {};
+
+    const toolbar = createToolbar({
+        editor,
+        selector: '#toolbar-container',
+        config: toolbarConfig,
+        mode: 'default', // or 'simple'
+    });
+    $('#add').click(function () {
+        console.log(editor.getHtml());
+    });
+</script>
+{/block}

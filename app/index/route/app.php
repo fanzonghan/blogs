@@ -8,3 +8,5 @@ Route::get('search','Index/search');
 Route::rule('cate','Category/index');
 
 Route::rule('article','Article/info');
+
+Route::rule('s','Test/test');

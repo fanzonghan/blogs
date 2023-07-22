@@ -1,0 +1,12 @@
+<div class="tzt-panel">
+    <div class="tzt-panel_hd">
+        <h3>友情链接</h3>
+    </div>
+    <div class="tzt-panel_bd">
+        <ul class="tzt-link clearfix">
+            {foreach :blogroll_list() as $item}
+            <a href="{$item['url']}" target="_blank" style="padding: 0 10px 0px 10px">{$item['name']}</a>
+            {/foreach}
+        </ul>
+    </div>
+</div>

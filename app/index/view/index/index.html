@@ -1,0 +1,83 @@
+{extend name="base" /}
+{block name="title"}首页{/block}
+{block name="header"}
+<header class="tzt-header">
+    <div class="page-bd">
+        <div class="tzt-header_hd pull-left">
+            <a href="/" title="{:sys_config('title')}">{:sys_config('title')}</a>
+        </div>
+        <div class="tzt-header_bd pull-left">
+            <a href="/"><i class="icon iconfont icon-home" style="margin-left:0;padding-top: 10px;"></i></a>
+        </div>
+        <div class="tzt-header_ft pull-right">
+            <div style="position: absolute;right:0;">
+                <button type="submit" id="search"
+                        style="border-radius: 0 5px 5px 0; background-color: var(--tzt-INDIGO); color: #fff;height:40px;width:60px">
+                    搜索
+                </button>
+                <a><i class="icon iconfont icon-classification" style="font-size: 26px;margin-left:0"></i></a>
+            </div>
+            <input type="text" id="keyword" class="form-control" placeholder="请输入要搜索的关键词" value="">
+        </div>
+        {include file="public/menus" /}
+    </div>
+</header>
+{/block}
+{block name="main"}
+<main class="page">
+    <div class="page-bd">
+        <div class="tzt-panel">
+            <div class="tzt-panel_bd mb15">
+                <a href="" title="小范的技术博客">
+                    <img class="img-responsive img-radius"
+                         src="http://www.xiaofan.ink/zb_users/theme/TztCard/upload/top.jpg" alt="小范的技术博客"/>
+                </a>
+            </div>
+            <div class="tzt-panel_bd" id="article_list">
+                {foreach $article_list as $item}
+                <a href="/article&id={$item.id}" class="tzt-media-box" title="{$item.title}">
+                    <div class="tzt-media-box_hd">
+                        <h3 class="tzt-media-box_title">{$item.title}</h3>
+                        <div class="tzt-media-box_desc">
+                            {$item.description}
+                        </div>
+                        <div class="tzt-media-box_time">
+                            {$item.category.name}
+                            <span class="split-line"></span>
+                            {$item.create_time}
+                        </div>
+                    </div>
+                    <div class="tzt-media-box_bd">
+                        <img src="{$item.img}" alt="{$item.title}">
+                    </div>
+                </a>
+                {/foreach}
+            </div>
+            <div class="tzt-panel_ft">
+                <ul class="tzt-pagination">
+                    <li>
+                        <a href="/">首页</a>
+                    </li>
+                    {if $page > 1}
+                    <li>
+                        <a href="/&page={$page - 1}">上一页</a>
+                    </li>
+                    {/if}
+                    <li class="active">
+                        <a id="page_num">{$page}</a>
+                    </li>
+                    {if $total > $page}
+                    <li>
+                        <a href="/&page={$page + 1}">下一页</a>
+                    </li>
+                    {/if}
+                    <li>
+                        <a>共{$total}页</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        {include file="public/blogroll" /}
+    </div>
+</main>
+{/block}

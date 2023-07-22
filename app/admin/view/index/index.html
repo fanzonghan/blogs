@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>{block name="title"}后台管理{/block}-{:sys_config('title')}</title>
+    <link rel="stylesheet" href="/static/admin/js/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/admin/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/admin/css/index.css">
+    <link rel="stylesheet" href="/static/admin/css/skins/_all-skins.css">
+    <script src="/static/admin/js/jquery/jQuery-2.2.0.min.js"></script>
+    <script src="/static/admin/js/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/admin/js/index.js"></script>
+    <!-- 引入 layui.css -->
+    <link href="/static/js/layui/css/layui.css" rel="stylesheet">
+    <!-- 引入 layui.js -->
+    <script src="/static/js/layui/layui.js"></script>
+</head>
+<body class="hold-transition skin-blue sidebar-mini" style="overflow:hidden;">
+<div id="ajax-loader"
+     style="cursor: progress; position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; background: #fff; z-index: 10000; overflow: hidden;">
+    <img src="/static/admin/img/ajax-loader.gif"
+         style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: auto;"/>
+</div>
+<div class="wrapper">
+    <!--头部信息-->
+    {include file="public/header" /}
+    <!--左边导航-->
+    {include file="public/menus"}
+    <!--中间内容-->
+    {include file="public/main" /}
+
+</div>
+</body>
+</html>

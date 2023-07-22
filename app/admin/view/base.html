@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{block name="title"}后台管理{/block}-{:sys_config('title')}</title>
+    <script src="/static/admin/js/jquery/jQuery-2.2.0.min.js"></script>
+    <!--  layui -->
+    <link href="/static/js/layui/css/layui.css" rel="stylesheet">
+    <script src="/static/js/layui/layui.js"></script>
+    <!--  editor-->
+    <link href="/static/js/editor/css/style.css" rel="stylesheet">
+    <script src="/static/js/editor/index.js"></script>
+    <script src="/static/js/vue.js"></script>
+    <script src="/static/js/element-ui/element.js"></script>
+    <link href="/static/js/element-ui/index.css" rel="stylesheet">
+    <script src="/static/js/index.js"></script>
+</head>
+<body>
+<div style="background-color: #fff;padding: 20px 0px 20px 0px" id="app">
+    {block name="main"}{/block}
+</div>
+<script>
+    var E = window.wangEditor; // 全局变量
+</script>
+{block name="js"}{/block}
+</body>
+</html>

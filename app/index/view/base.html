@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1,maximum-scale=1">
+    <title>{block name="title"}小范的个人博客{/block}-{:sys_config('title')}</title>
+    <meta name="keywords" content="{:sys_config('keywords')}">
+    <link href="/static/style.css" rel="stylesheet" type="text/css"/>
+    <script src="/static/js/jquery-3.6.1.js"></script>
+    <script src="/static/js/layer/layer.js"></script>
+    <link rel="stylesheet" href="/static/prism/one/prism.css">
+    <script src="/static/prism/one/prism.js"></script>
+    <meta name="description" content="{:sys_config('description')}"/>
+</head>
+<body>
+{block name="header"}{/block}
+{block name="main"}{/block}
+<footer class="footer">
+    <div class="page-bd">
+        <div class="text-center text-muted">
+            {:sys_config('copyright')}
+        </div>
+    </div>
+</footer>
+<script>
+    $('#search').click(function () {
+        let keyword = $('#keyword').val();
+        if (keyword == '' || keyword == undefined) {
+            layer.msg('搜索内容不能为空');
+            return;
+        }
+        window.location.replace("/search?keyword=" + keyword);
+    })
+</script>
+</body>
+</html>

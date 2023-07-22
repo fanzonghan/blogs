@@ -1,0 +1,74 @@
+{extend name="base" /}
+{block name="main"}
+<table class="layui-hide" id="treeTable-demo"></table>
+<script type="text/html" id="treeTable-demo-tools">
+    <div class="layui-btn-container">
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="add">添加</a>
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="del">删除</a>
+    </div>
+</script>
+{/block}
+{block name="js"}
+<script>
+    layui.use(['table','treeTable'], function () {
+        var treeTable = layui.treeTable;
+        treeTable.render({
+            elem: '#treeTable-demo',
+            url: 'list',
+            maxHeight: '501px',
+            cols: [[
+                {type: 'checkbox'},
+                {field: 'name', title: '分类名', width: 180},
+                {field: 'status', title: '状态',templet:function (res) {
+                        return '正常';
+                }},
+                {field: 'create_time', title: '添加时间'},
+                {field: 'update_time', title: '更新时间'},
+                { fixed: "right", title: "操作", width: 181, align: "center", toolbar: "#treeTable-demo-tools"}
+            ]],
+            page: true
+        });
+        // 触发单元格工具事件
+        treeTable.on('tool(treeTable-demo)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'edit') {
+                layer.prompt({title: '编辑',value:data.name}, function(value, index, elem){
+                    if(value === '') return elem.focus();
+                    $.ajax('edit', {
+                        type: 'post',
+                        data:{id:data.id,name:value},
+                        success:function (res) {
+                            layer.close(index);
+                            treeTable.reload('treeTable-demo');
+                            layer.msg(res.msg)
+                        }
+                    })
+                });
+            } else if (obj.event === 'del') {
+                $.ajax('del', {
+                    type: 'get',
+                    data:{id:data.id},
+                    success:function (res) {
+                        treeTable.reload('treeTable-demo');
+                        layer.msg(res.msg)
+                    }
+                })
+            } else if(obj.event === 'add'){
+                layer.prompt({title: '添加'}, function(value, index, elem){
+                    if(value === '') return elem.focus();
+                    $.ajax('add', {
+                        type: 'post',
+                        data:{pid:data.id,name:value},
+                        success:function (res) {
+                            layer.close(index);
+                            treeTable.reload('treeTable-demo');
+                            layer.msg(res.msg)
+                        }
+                    })
+                });
+            }
+        });
+    })
+</script>
+{/block}
