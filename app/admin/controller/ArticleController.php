@@ -4,10 +4,13 @@
 namespace app\admin\controller;
 
 use app\admin\AdminController;
+use app\model\Article;
 use app\services\ArticleServices;
 use app\services\CategoryServices;
+use app\services\ExtendServices;
 use app\services\TagServices;
 use think\App;
+use think\Exception;
 use think\facade\Log;
 use think\Request;
 
@@ -21,7 +24,7 @@ class ArticleController extends AdminController
 {
     private $services = ArticleServices::class;
 
-    public function __construct(App $app,ArticleServices $articleServices)
+    public function __construct(App $app, ArticleServices $articleServices)
     {
         parent::__construct($app);
         $this->services = $articleServices;
@@ -30,10 +33,10 @@ class ArticleController extends AdminController
     public function list(Request $request)
     {
         if ($request->isAjax()) {
-            $page = $request->get('page',1);
-            $limit = $request->get('limit',10);
+            $page = $request->get('page', 1);
+            $limit = $request->get('limit', 10);
             $list = $this->services->list([], $page, $limit);
-            return json(['code' => 0, 'data' => $list,'msg'=>'success']);
+            return json(['code' => 0, 'data' => $list, 'msg' => 'success']);
         }
         return $this->fetch('article/list');
     }
@@ -51,9 +54,9 @@ class ArticleController extends AdminController
                 'desc' => 'required',
             ]);
             $res = $this->services->add($this->adminInfo['uid'], $post);
-            if($res){
+            if ($res) {
                 return json(['code' => 1, 'msg' => '添加成功']);
-            }else{
+            } else {
                 return json(['code' => 0, 'msg' => '添加失败']);
             }
         }
@@ -67,6 +70,7 @@ class ArticleController extends AdminController
         $this->assign('tags', json_encode($tags, JSON_UNESCAPED_UNICODE));
         return $this->fetch('article/add');
     }
+
     public function edit(Request $request)
     {
         if ($request->isPost()) {
@@ -80,18 +84,18 @@ class ArticleController extends AdminController
 //                'desc' => 'required',
 //            ]);
             $res = $this->services->edit($post['id'], $post);
-            if($res){
+            if ($res) {
                 return json(['code' => 1, 'msg' => '修改成功']);
-            }else{
+            } else {
                 return json(['code' => 0, 'msg' => '修改失败']);
             }
         }
-        $id = $request->get('id',0);
+        $id = $request->get('id', 0);
         $info = $this->services->info($id);
-        $this->assign('info',$info);
-        $tags = explode(',',$info['tag']);
+        $this->assign('info', $info);
+        $tags = explode(',', $info['tag']);
         $tags = array_map('intval', $tags);
-        $this->assign('tags',json_encode($tags,JSON_UNESCAPED_UNICODE));
+        $this->assign('tags', json_encode($tags, JSON_UNESCAPED_UNICODE));
         /** @var TagServices $TagServices */
         $TagServices = app()->make(TagServices::class);
         /** @var CategoryServices $CategoryServices */
@@ -101,5 +105,33 @@ class ArticleController extends AdminController
         $tagList = $TagServices->list();
         $this->assign('tagList', json_encode($tagList, JSON_UNESCAPED_UNICODE));
         return $this->fetch('article/edit');
+    }
+
+    public function del(Request $request)
+    {
+        return json(['code' => 1, 'msg' => '修改成功']);
+    }
+
+    /**
+     * 收录
+     * @param Request $request
+     */
+    public function gather(Request $request)
+    {
+        $id = $request->get('id', 0);
+        if (empty($id)) return json(['code' => 0, 'msg' => '不能为空']);
+        /** @var ExtendServices $ExtendServices */
+        $ExtendServices = app()->make(ExtendServices::class);
+        $system_url = sys_config('system_url');
+        $article_url = $system_url . '/' . 'article/' . $id;
+        $res = $ExtendServices->BaiduRecord([$article_url]);
+        if(isset($res['success']) && $res['success'] > 0){
+            //成功
+            Article::where('id',$id)->update(['sl'=>1]);
+            return json(['code' => 1, 'msg' => '提交成功']);
+        }else{
+            //失败
+            return json(['code' => 0, 'msg' => $res['message'] ?? 'error']);
+        }
     }
 }

@@ -17,9 +17,12 @@ class IndexController extends BaseController
     public function __construct(App $app)
     {
         parent::__construct($app);
-        $status = sys_config('status',1);
+        $status = sys_config('status','',1);
         if(!$status){
             $this->error('站点升级中.....',[],'#');
+        }
+        if(request()->isOptions()){
+            exit;
         }
     }
 }

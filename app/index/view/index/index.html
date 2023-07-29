@@ -27,15 +27,19 @@
 <main class="page">
     <div class="page-bd">
         <div class="tzt-panel">
-            <div class="tzt-panel_bd mb15">
-                <a href="" title="小范的技术博客">
-                    <img class="img-responsive img-radius"
-                         src="http://www.xiaofan.ink/zb_users/theme/TztCard/upload/top.jpg" alt="小范的技术博客"/>
-                </a>
+            {if condition="empty($bannerList) neq true" /}
+            <div class="layui-carousel tzt-panel_bd" id="ID-carousel-demo-image">
+                <div carousel-item>
+                    {foreach $bannerList as $item}
+                    <div><img src="{$item.src}"></div>
+                    {/foreach}
+                </div>
             </div>
+            {else /}
+            {/if}
             <div class="tzt-panel_bd" id="article_list">
                 {foreach $article_list as $item}
-                <a href="/article&id={$item.id}" class="tzt-media-box" title="{$item.title}">
+                <a href="/article/{$item.id}" class="tzt-media-box" title="{$item.title}">
                     <div class="tzt-media-box_hd">
                         <h3 class="tzt-media-box_title">{$item.title}</h3>
                         <div class="tzt-media-box_desc">
@@ -80,4 +84,16 @@
         {include file="public/blogroll" /}
     </div>
 </main>
+<script>
+    layui.use(function () {
+        var carousel = layui.carousel;
+        // 渲染 - 图片轮播
+        carousel.render({
+            elem: '#ID-carousel-demo-image',
+            width: '100%',
+            height: '300px',
+            interval: 3000
+        });
+    });
+</script>
 {/block}

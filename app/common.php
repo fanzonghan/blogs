@@ -13,11 +13,13 @@ if (!function_exists('sys_config')) {
      * @param string $default
      * @return string
      */
-    function sys_config(string $name, $default = '')
+    function sys_config(string $name,$group = '', $default = '')
     {
         if (empty($name))
             return $default;
-        $sysConfig = \app\model\SystemConfig::where('name',$name)->find();
+        $sysConfig = \app\model\SystemConfig::where('name',$name)->when(!empty($group), function ($query)use($group){
+            $query->where('group',$group);
+        })->find();
         return $sysConfig['value'];
     }
 }

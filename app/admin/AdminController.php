@@ -30,6 +30,14 @@ class AdminController extends BaseController
     // 初始化
     protected function initialize()
     {
-
+        $gl_rule = [
+            'login/index',
+            'login/login'
+        ];
+        if(!in_array($this->request->rule()->getRule(), $gl_rule)){
+            if(empty(Cache::get('adminInfo'))){
+                $this->error('未登录，请登陆',[],'/admin/login/index');
+            }
+        }
     }
 }

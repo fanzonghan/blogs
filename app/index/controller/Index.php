@@ -38,6 +38,8 @@ class Index extends IndexController
         $this->assign('article_list',$res['list']);
         $this->assign('total',$res['total']);
         $this->assign('page',$page);
+        $bannerArr = [];
+        $this->assign('bannerList',$bannerArr);
         return $this->fetch();
     }
 

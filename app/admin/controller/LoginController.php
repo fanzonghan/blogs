@@ -27,7 +27,7 @@ class LoginController extends AdminController
         $AdminServices = app()->make(AdminServices::class);
         try {
             if ($AdminServices->login($username, $password)) {
-                $this->success('登陆成功', [], '/admin/index');
+                $this->success('登陆成功', '', '/admin/index');
             } else {
                 $this->error('登陆失败');
             }
