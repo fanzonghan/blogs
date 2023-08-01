@@ -14,6 +14,7 @@ class ComposerStaticInitdab9a957a86525ca1ab78084376ae721
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
         'a1105708a18b76903365ca1c4aa61b02' => __DIR__ . '/..' . '/symfony/translation/Resources/functions.php',
         '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
+        '841780ea2e1d6545ea3a253239d59c05' => __DIR__ . '/..' . '/qiniu/php-sdk/src/Qiniu/functions.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         'cc56288302d9df745d97c934d6a6e5f0' => __DIR__ . '/..' . '/topthink/think-queue/src/common.php',
     );
@@ -45,6 +46,10 @@ class ComposerStaticInitdab9a957a86525ca1ab78084376ae721
             'Symfony\\Component\\Process\\' => 26,
             'Spatie\\Macroable\\' => 17,
         ),
+        'Q' => 
+        array (
+            'Qiniu\\' => 6,
+        ),
         'P' => 
         array (
             'Psr\\SimpleCache\\' => 16,
@@ -52,6 +57,10 @@ class ComposerStaticInitdab9a957a86525ca1ab78084376ae721
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Container\\' => 14,
             'Psr\\Cache\\' => 10,
+        ),
+        'M' => 
+        array (
+            'MyCLabs\\Enum\\' => 13,
         ),
         'L' => 
         array (
@@ -131,6 +140,10 @@ class ComposerStaticInitdab9a957a86525ca1ab78084376ae721
         array (
             0 => __DIR__ . '/..' . '/spatie/macroable/src',
         ),
+        'Qiniu\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/qiniu/php-sdk/src/Qiniu',
+        ),
         'Psr\\SimpleCache\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/simple-cache/src',
@@ -150,6 +163,10 @@ class ComposerStaticInitdab9a957a86525ca1ab78084376ae721
         'Psr\\Cache\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/cache/src',
+        ),
+        'MyCLabs\\Enum\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/myclabs/php-enum/src',
         ),
         'League\\MimeTypeDetection\\' => 
         array (
