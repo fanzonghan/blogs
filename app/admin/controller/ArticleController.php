@@ -45,14 +45,14 @@ class ArticleController extends AdminController
     {
         if ($request->isPost()) {
             $post = $request->post();
-            $this->validate($post, [
-                'title' => 'required',
-                'alias' => 'required',
-                'tags' => 'required',
-                'category_id' => 'required|integer',
-                'img' => 'required',
-                'desc' => 'required',
-            ]);
+//            $this->validate($post, [
+//                'title' => 'required',
+//                'alias' => 'required',
+//                'tags' => 'required',
+//                'category_id' => 'required|integer',
+//                'img' => 'required',
+//                'desc' => 'required',
+//            ]);
             $res = $this->services->add($this->adminInfo['uid'], $post);
             if ($res) {
                 return json(['code' => 1, 'msg' => '添加成功']);
