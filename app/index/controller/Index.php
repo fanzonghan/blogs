@@ -4,9 +4,11 @@
 namespace app\index\controller;
 
 use app\index\IndexController;
+use app\model\SystemConfig;
 use app\services\ArticleServices;
 use think\App;
 use think\Exception;
+use think\Model;
 
 /**
  * @description: 神兽保佑 永无bug
@@ -38,7 +40,8 @@ class Index extends IndexController
         $this->assign('article_list',$res['list']);
         $this->assign('total',$res['total']);
         $this->assign('page',$page);
-        $bannerArr = [];
+        $SystemConfig = new SystemConfig();
+        $bannerArr = $SystemConfig->field('name,value as src')->where('group','banner')->select();
         $this->assign('bannerList',$bannerArr);
         return $this->fetch();
     }
