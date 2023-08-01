@@ -29,14 +29,17 @@ class Upload
             switch ($this->type) {
                 case 'qiniu':
                     $res = $QiniuUploadServices->uploadFile($files);
+                    $data = [
+                        'url' => $res['file'],
+                    ];
                     break;
                 default:
                     $res = $LocalUploadServices->img($files);
+                    $data = [
+                        'url' => $res,
+                    ];
                     break;
             }
-            $data = [
-                'url' => $res,
-            ];
             return app('json')->success($data);
         } catch (\Exception $e) {
             return app('json')->fail($e->getMessage());
