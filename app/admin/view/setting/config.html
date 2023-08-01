@@ -23,6 +23,12 @@
         </div>
     </div>
     <div class="layui-form-item">
+        <label class="layui-form-label">网站地址</label>
+        <div class="layui-input-block">
+            <input type="text" name="system_url" autocomplete="off" placeholder="请输入网站地址" value="{:sys_config('system_url')}" lay-verify="required" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
         <label class="layui-form-label">开关</label>
         <div class="layui-input-block">
             <input type="checkbox" name="status" lay-skin="switch" lay-filter="switchTest" title="开|关" {:sys_config('status') == 1 ? 'checked=""':''}>

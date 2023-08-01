@@ -5,6 +5,7 @@ namespace app\admin\controller;
 
 use app\admin\AdminController;
 use app\services\AdminServices;
+use think\facade\Cache;
 
 /**
  * @description: 神兽保佑 永无bug
@@ -14,25 +15,31 @@ use app\services\AdminServices;
  */
 class LoginController extends AdminController
 {
-    public function index()
-    {
-        return $this->fetch('login/index');
-    }
 
     public function login()
     {
-        $username = $this->request->post('username', '');
-        $password = $this->request->post('password', '');
-        /** @var AdminServices $AdminServices */
-        $AdminServices = app()->make(AdminServices::class);
-        try {
-            if ($AdminServices->login($username, $password)) {
+        if ($this->request->isPost()) {
+            $username = $this->request->post('username', '');
+            $password = $this->request->post('password', '');
+            /** @var AdminServices $AdminServices */
+            $AdminServices = app()->make(AdminServices::class);
+            try {
+                $res = $AdminServices->login($username, $password);
+            } catch (\Exception $e) {
+                $this->error($e->getMessage());
+            }
+            if ($res) {
                 $this->success('登陆成功', [], '/admin/index');
             } else {
                 $this->error('登陆失败');
             }
-        } catch (\Exception $e) {
-            $this->error($e->getMessage());
         }
+        return $this->fetch('login/index');
+    }
+
+    public function logout()
+    {
+        Cache::set('adminInfo', null);
+        $this->success('已退出，请重新登录', [], '/admin/login');
     }
 }

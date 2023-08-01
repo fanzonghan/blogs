@@ -6,6 +6,7 @@ namespace xiaofan\basic;
 use think\App;
 use think\exception\HttpResponseException;
 use think\exception\ValidateException;
+use think\facade\Log;
 use think\Validate;
 use think\facade\View;
 
@@ -128,7 +129,7 @@ abstract class BaseController
      */
     protected function success($msg = '', $data = '', $url = null, $wait = 3, array $header = [])
     {
-        if (is_null($url) && isset($_SERVER["HTTP_REFERER"])) {
+        if (is_null($url)) {
             $url = $_SERVER["HTTP_REFERER"];
         } elseif ($url) {
             $url = (strpos($url, '://') || 0 === strpos($url, '/')) ? $url : app('route')->buildUrl($url)->__toString();
@@ -140,6 +141,7 @@ abstract class BaseController
             'url'  => $url,
             'wait' => $wait,
         ];
+        Log::error($result);
         $response = view(app()->getRootPath() . '/xiaofan/tpl/dispatch_jump.tpl', $result);
         throw new HttpResponseException($response);
     }

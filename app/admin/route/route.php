@@ -2,7 +2,5 @@
 
 use think\facade\Route;
 
-Route::group('login',function () {
-    Route::rule('index','LoginController/index');
-    Route::post('login','LoginController/login');
-});
+Route::get('logout','LoginController/logout');
+Route::rule('login','LoginController/login');
