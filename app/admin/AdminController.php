@@ -37,6 +37,7 @@ class AdminController extends BaseController
             if(empty(Cache::get('adminInfo'))){
                 $this->error('未登录，请登陆',[],'/admin/login');
             }
+            $this->adminInfo = Cache::get('adminInfo');
         }
     }
 }
