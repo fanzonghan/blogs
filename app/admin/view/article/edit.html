@@ -70,7 +70,7 @@
 </form>
 <input style="display: none" id="tagList" value="{$tagList}">
 <input style="display: none" id="tags" value="{$tags}">
-<input style="display: none" id="desc" value="{$info.description}">
+<textarea style="display: none" id="description">{$info.description|raw}</textarea >
 <style>
 
 </style>
@@ -198,7 +198,7 @@
     }
     const editor = createEditor({
         selector: '#editor-container',
-        html: $('#desc').val(),
+        html: $('#description').val(),
         config: editorConfig,
         mode: 'default', // or 'simple'
     });
