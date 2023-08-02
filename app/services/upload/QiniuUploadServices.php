@@ -43,7 +43,7 @@ class QiniuUploadServices
         // 获取图片后缀
         $ext = $image->getOriginalExtension();
         // 上传到七牛后保存的新图片名
-        $newImageName = substr(md5($image->getOriginalName()), 0, 6)
+        $newImageName = date('Ymd') . '/' . substr(md5($image->getOriginalName()), 0, 6)
             . rand(00000, 99999) . '.' . $ext;
         $auth = new Auth($this->accessKey, $this->secretKey);
         // 要上传的空间位置
