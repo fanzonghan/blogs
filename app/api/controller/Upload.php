@@ -7,6 +7,7 @@ use app\services\upload\LocalUploadServices;
 use app\services\upload\QiniuUploadServices;
 use think\facade\Config;
 use think\facade\Filesystem;
+use think\facade\Log;
 
 /**
  * @description: 神兽保佑 永无bug

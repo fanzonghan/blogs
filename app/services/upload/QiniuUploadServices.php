@@ -32,36 +32,6 @@ class QiniuUploadServices
         $this->yzurl = sys_config('yzurl', 'qiniu', '');
     }
 
-    //图片
-    public function img($image)
-    {
-        // 获取表单上传文件
-        $key = $image->getOriginalName();
-        //获取上传后的文件路径
-        // 图片存储在本地的临时路经
-        $filePath = $image->getRealPath();
-        // 获取图片后缀
-        $ext = $image->getOriginalExtension();
-        // 上传到七牛后保存的新图片名
-        $newImageName = date('Ymd') . '/' . substr(md5($image->getOriginalName()), 0, 6)
-            . rand(00000, 99999) . '.' . $ext;
-        $auth = new Auth($this->accessKey, $this->secretKey);
-        // 要上传的空间位置
-        $token = $auth->uploadToken($this->bucket);
-        // 初始化 UploadManager 对象并进行文件的上传。
-        $uploadMgr = new UploadManager();
-        list($ret, $err) = $uploadMgr->putFile($token, $newImageName, $filePath);
-        if ($err !== null) {
-            return null;
-        } else {
-            // 图片上传成功
-            $da['image'] = $this->yzurl . '/' . $newImageName;
-            $da['title'] = $key;
-            $da['time'] = date("Y/m/d");
-            return $da;
-        }
-    }
-
     //文件上传
     public function uploadFile($file)
     {
@@ -72,7 +42,7 @@ class QiniuUploadServices
         // 获取文件后缀
         $ext = $file->getOriginalExtension();
         // 文件到七牛后保存的新文件名
-        $newImageName = substr(md5($file->getOriginalName()), 0, 6)
+        $newImageName = date('Ymd') . '/' . substr(md5($file->getOriginalName()), 0, 6)
             . rand(00000, 99999) . '.' . $ext;
         $auth = new Auth($this->accessKey, $this->secretKey);
         // 要上传的空间位置
@@ -81,7 +51,7 @@ class QiniuUploadServices
         $uploadMgr = new UploadManager();
         list($ret, $err) = $uploadMgr->putFile($token, $newImageName, $filePath);
         if ($err !== null) {
-            return null;
+            throw new \Exception('上传失败');
         } else {
             // 文件上传成功
             $da['file'] = $this->yzurl . '/' . $newImageName;
