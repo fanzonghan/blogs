@@ -29,14 +29,7 @@ class ArticleServices extends BaseServices
     {
         $list = $this->model->where('is_del',0)->with(['category' => function ($query) {
             $query->visible(['name']);
-        }, 'articleDescription' => function ($query) {
-            $query->visible(['description']);
         },'user'])->order('update_time desc')->where($where)->page($page, $limit)->select()->toArray();
-        foreach ($list as &$item) {
-            $item['description'] = mb_substr(strip_tags($item['articleDescription']['description']), 0, 50) . '...';
-            unset($item['articleDescription']);
-        }
-
         $count = $this->model->where($where)->count();
         return ['list' => $list, 'total' => ceil($count / $limit)];
     }
