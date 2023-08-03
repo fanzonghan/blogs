@@ -28,8 +28,8 @@
     <div class="page-bd">
         <div class="tzt-panel">
             {if condition="empty($bannerList) neq true" /}
-            <div class="layui-carousel tzt-panel_bd" id="ID-carousel-demo-image">
-                <div carousel-item>
+            <div class="layui-carousel tzt-panel_bd" id="imgbox">
+                <div carousel-item id="imgH">
                     {foreach $bannerList as $item}
                     <div><img src="{$item.src}" alt="{$item.title}"></div>
                     {/foreach}
@@ -85,16 +85,47 @@
         {include file="public/blogroll" /}
     </div>
 </main>
+<style>
+    /*轮播*/
+    .layui-carousel>[carousel-item]{
+        overflow: visible;
+    }
+    .layui-carousel>[carousel-item]>*{
+        height: auto;
+    }
+    .layui-carousel-ind{
+        margin-top: -20px;
+        top: auto;
+        bottom: 10px;
+    }
+</style>
 <script>
     layui.use(function () {
         var carousel = layui.carousel;
         // 渲染 - 图片轮播
-        carousel.render({
-            elem: '#ID-carousel-demo-image',
-            width: '100%',
-            height: '300px',
-            interval: 3000
-        });
+        // carousel.render({
+        //     elem: '#imgbox',
+        //     width: '100%',
+        //     height: '300px',
+        //     interval: 3000
+        // });
+
+            var imgH = document.getElementById('imgbox').querySelector('.img-item').offsetHeight;
+            document.getElementById('imgH').style.height = imgH+'px';
+
+            window.onresize = function () {
+                var imgH = document.getElementById('imgbox').querySelector('.img-item').offsetHeight;
+                document.getElementById('imgH').style.height = imgH+'px';
+            };
+
+            //建造实例
+            carousel.render({
+                elem: '#imgbox'
+                ,width: '100%' //设置容器宽度
+                ,arrow: 'always' // 悬停显示箭头
+                ,indicator: 'inside'
+                ,height: 'auto'
+            });
     });
 </script>
 {/block}
