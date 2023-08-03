@@ -32,6 +32,13 @@
         }
         window.location.replace("/search?keyword=" + keyword);
     })
+    var img = $("img");
+    img.on("contextmenu", function () {
+        return false;
+    });
+    img.on("dragstart", function () {
+        return false;
+    });
 </script>
 </body>
 </html>
