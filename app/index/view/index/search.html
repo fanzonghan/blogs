@@ -54,7 +54,7 @@
                     </li>
                     {if $page > 1}
                     <li>
-                        <a href="/&page={$page - 1}">上一页</a>
+                        <a href="?page={$page - 1}">上一页</a>
                     </li>
                     {/if}
                     <li class="active">
@@ -62,7 +62,7 @@
                     </li>
                     {if $total > $page}
                     <li>
-                        <a href="/&page={$page + 1}">下一页</a>
+                        <a href="?page={$page + 1}">下一页</a>
                     </li>
                     {/if}
                     <li>

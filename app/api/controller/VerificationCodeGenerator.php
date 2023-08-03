@@ -3,6 +3,8 @@
 
 namespace app\api\controller;
 
+use think\facade\Cache;
+
 /**
  * @description: 神兽保佑 永无bug
  * @author xiaofan
@@ -131,8 +133,8 @@ class VerificationCodeGenerator
     {
         return strtolower($this->code);
     }
+    public function index(){
+        $this->doimg();
+        Cache::set('verifyCode', $this->getCode());
+    }
 }
-
-$_vc = new VerificationCodeGenerator(); //实例化一个对象
-$_vc->doimg();
-//$_vc->getCode();
