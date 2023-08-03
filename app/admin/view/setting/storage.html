@@ -1,0 +1,39 @@
+<form class="layui-form" action="">
+  <input name="type" value="storage" hidden disabled>
+  <div class="layui-form-item">
+    <label class="layui-form-label">上传方式</label>
+    <div class="layui-input-block">
+      <input type="radio" name="storage_type" value="local" title="本地" {:sys_config('storage_type') == 'local' ? 'checked':''}>
+      <input type="radio" name="storage_type" value="qiniu" title="七牛云" {:sys_config('storage_type') == 'qiniu' ? 'checked':''}>
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">七牛云accessKey</label>
+    <div class="layui-input-block">
+      <input type="text" name="accessKey" autocomplete="off" placeholder="请输入accessKey" value="{:sys_config('accessKey')}"  class="layui-input">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">七牛云secretKey</label>
+    <div class="layui-input-block">
+      <input type="text" name="secretKey" autocomplete="off" placeholder="请输入secretKey" value="{:sys_config('secretKey')}" class="layui-input">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">七牛云桶</label>
+    <div class="layui-input-block">
+      <input type="text" name="bucket" autocomplete="off" placeholder="请输入桶" value="{:sys_config('bucket')}" class="layui-input">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">七牛云域名</label>
+    <div class="layui-input-block">
+      <input type="text" name="yzurl" autocomplete="off" placeholder="请输入存储域名" value="{:sys_config('yzurl')}" class="layui-input">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button type="submit" class="layui-btn" lay-submit lay-filter="submit">立即提交</button>
+    </div>
+  </div>
+</form>

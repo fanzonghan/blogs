@@ -17,7 +17,11 @@ use think\facade\Log;
  */
 class Upload
 {
-    private $type = 'qiniu';// local：本地 qiniu：七牛云
+    private $type = '';// local：本地 qiniu：七牛云
+    public function __construct()
+    {
+        $this->type = sys_config('storage_type','local');
+    }
 
     public function uploads()
     {
@@ -28,6 +32,12 @@ class Upload
             /** @var QiniuUploadServices $QiniuUploadServices */
             $QiniuUploadServices = app()->make(QiniuUploadServices::class);
             switch ($this->type) {
+                case 'local':
+                    $res = $LocalUploadServices->img($files);
+                    $data = [
+                        'url' => $res,
+                    ];
+                    break;
                 case 'qiniu':
                     $res = $QiniuUploadServices->uploadFile($files);
                     $data = [
@@ -35,11 +45,7 @@ class Upload
                     ];
                     break;
                 default:
-                    $res = $LocalUploadServices->img($files);
-                    $data = [
-                        'url' => $res,
-                    ];
-                    break;
+                    throw new \Exception('未配置上传方式');
             }
             return app('json')->success($data);
         } catch (\Exception $e) {

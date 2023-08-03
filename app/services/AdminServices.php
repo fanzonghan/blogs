@@ -24,7 +24,7 @@ class AdminServices extends BaseServices
         if($userInfo){
             $userInfo = $userInfo->toArray();
             if($userInfo['password'] == md5($password)){
-                Cache::set('adminInfo', $userInfo,3600);
+                Cache::set('adminInfo', $userInfo,3600 * 12);
                 return true;
             }else{
                 throw new \Exception("账号或密码错误");

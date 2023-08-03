@@ -3,49 +3,23 @@
 <fieldset class="layui-elem-field layui-field-title">
     <legend>基础配置</legend>
 </fieldset>
-<form class="layui-form" action="">
-    <div class="layui-form-item">
-        <label class="layui-form-label">网站标题</label>
-        <div class="layui-input-block">
-            <input type="text" name="title" autocomplete="off" placeholder="请输入网站标题" value="{:sys_config('title')}" lay-verify="required" class="layui-input">
+<div class="layui-tab layui-tab-brief">
+    <ul class="layui-tab-title">
+        <li class="layui-this">基础配置</li>
+        <li>存储方式</li>
+    </ul>
+    <div class="layui-tab-content">
+        <div class="layui-tab-item layui-show">
+            {include file="/setting/basic"}
+        </div>
+        <div class="layui-tab-item">
+            {include file="/setting/storage"}
+        </div>
+        <div class="layui-tab-item">
+
         </div>
     </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">网站关键词</label>
-        <div class="layui-input-block">
-            <input type="text" name="keywords" autocomplete="off" placeholder="请输入网站关键词" value="{:sys_config('keywords')}" lay-verify="required" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">网站描述</label>
-        <div class="layui-input-block">
-            <input type="text" name="description" autocomplete="off" placeholder="请输入网站描述" value="{:sys_config('description')}" lay-verify="required" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">网站地址</label>
-        <div class="layui-input-block">
-            <input type="text" name="system_url" autocomplete="off" placeholder="请输入网站地址" value="{:sys_config('system_url')}" lay-verify="required" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">开关</label>
-        <div class="layui-input-block">
-            <input type="checkbox" name="status" lay-skin="switch" lay-filter="switchTest" title="开|关" {:sys_config('status') == 1 ? 'checked=""':''}>
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">底部版权信息</label>
-        <div class="layui-input-block">
-            <textarea placeholder="请输入底部版权信息" name="copyright" class="layui-textarea">{:sys_config('copyright')}</textarea>
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <div class="layui-input-block">
-            <button type="submit" class="layui-btn" lay-submit lay-filter="submit">立即提交</button>
-        </div>
-    </div>
-</form>
+</div>
 {/block}
 {block name="js"}
 <script>
@@ -54,7 +28,6 @@
         var upload = layui.upload;
         //提交
         form.on('submit(submit)', function (data) {
-            console.log(data.field)
             $.ajax('',{
                 type:'post',
                 data:data.field,

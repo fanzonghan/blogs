@@ -6,6 +6,7 @@
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
         <button class="layui-btn layui-btn-sm" lay-event="refresh">刷新</button>
+        <button class="layui-btn layui-btn-sm" lay-event="add">添加</button>
     </div>
 </script>
 
@@ -37,13 +38,15 @@
                 {type: 'checkbox',},
                 {field: 'id', title: 'ID', width: 80},
                 {field: 'name', title: '标签名', minWidth: 180},
-                {field: 'status', title: '状态', width: 150,templet: function (res) {
+                {
+                    field: 'status', title: '状态', width: 150, templet: function (res) {
                         return '正常';
-                    }},
+                    }
+                },
                 {field: 'add_time', title: '添加时间', width: 150},
                 {fixed: 'right', title: '操作', width: 134, minWidth: 125, toolbar: '#barDemo'}
             ]]
-            ,parseData: function(res){ //res 即为原始返回的数据
+            , parseData: function (res) { //res 即为原始返回的数据
                 return {
                     "code": res.code, //解析接口状态
                     "msg": res.msg, //解析提示文本
@@ -65,6 +68,20 @@
                 case 'refresh':
                     table.reload('test');
                     break;
+                case 'add':
+                    layer.prompt({title: '添加', value: ''}, function (value, index, elem) {
+                        if (value === '') return elem.focus();
+                        $.ajax('add', {
+                            type: 'post',
+                            data: {name: value},
+                            success: function (res) {
+                                layer.close(index);
+                                table.reload('test');
+                                layer.msg(res.msg)
+                            }
+                        })
+                    });
+                    break;
                 case 'LAYTABLE_TIPS':
                     break;
             }
@@ -73,12 +90,12 @@
         table.on('tool(test)', function (obj) { // 双击 toolDouble
             var data = obj.data; // 获得当前行数据
             if (obj.event === 'edit') {
-                layer.prompt({title: '编辑',value:data.name}, function(value, index, elem){
-                    if(value === '') return elem.focus();
+                layer.prompt({title: '编辑', value: data.name}, function (value, index, elem) {
+                    if (value === '') return elem.focus();
                     $.ajax('edit', {
                         type: 'post',
-                        data:{id:data.id,name:value},
-                        success:function (res) {
+                        data: {id: data.id, name: value},
+                        success: function (res) {
                             layer.close(index);
                             table.reload('test');
                             layer.msg(res.msg)
@@ -88,8 +105,8 @@
             } else if (obj.event === 'del') {
                 $.ajax('del', {
                     type: 'get',
-                    data:{id:data.id},
-                    success:function (res) {
+                    data: {id: data.id},
+                    success: function (res) {
                         table.reload('test');
                         layer.msg(res.msg)
                     }
