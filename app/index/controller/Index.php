@@ -41,7 +41,7 @@ class Index extends IndexController
         $this->assign('total',$res['total']);
         $this->assign('page',$page);
         $SystemConfig = new SystemConfig();
-        $bannerArr = $SystemConfig->field('name,value as src')->where('group','banner')->select();
+        $bannerArr = $SystemConfig->field('name as title,value as src')->where('group','banner')->select();
         $this->assign('bannerList',$bannerArr);
         return $this->fetch();
     }
