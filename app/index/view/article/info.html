@@ -59,16 +59,16 @@
             <div class="text-muted">阅读：{$article_data.browse_num}次</div>
         </div>
 
-        <div class="tzt-panel">
-            <div class="tzt-panel_bd clearfix">
-                <p>
-                    <strong>上一篇：</strong><a href="#">关于前后端分离导致session失效取值为空的问题解决</a>
-                </p>
-                <p class="margin-0">
-                    <strong>下一篇：</strong><a href="#">解决Tomcat控制台中文乱码的两种方式</a>
-                </p>
-            </div>
-        </div>
+<!--        <div class="tzt-panel">-->
+<!--            <div class="tzt-panel_bd clearfix">-->
+<!--                <p>-->
+<!--                    <strong>上一篇：</strong><a href="#">关于前后端分离导致session失效取值为空的问题解决</a>-->
+<!--                </p>-->
+<!--                <p class="margin-0">-->
+<!--                    <strong>下一篇：</strong><a href="#">解决Tomcat控制台中文乱码的两种方式</a>-->
+<!--                </p>-->
+<!--            </div>-->
+<!--        </div>-->
 
         <div class="tzt-panel">
             <div class="tzt-panel_hd">
@@ -114,6 +114,9 @@
                                 <input type="text" name="inpVerify" id="inpVerify" class="form-control text" value=""
                                        tabindex="4" placeholder="验证码"
                                        style="display: inline-block; max-width: 120px; margin-right: 10px;">
+                                <img src="/api/VerificationCodeGenerator"
+                                     onclick="javascript:this.src='/api/VerificationCodeGenerator?tm='+Math.random();"
+                                     style="max-width: 120px;height: 35px"/>
                             </p>
                             &nbsp;&nbsp;
                             <div class="text-center">

@@ -31,7 +31,8 @@
         "topthink/think-view": "^1.0",
       "ext-json": "*",
       "ext-curl": "*",
-        "qiniu/php-sdk": "^7.9"
+        "qiniu/php-sdk": "^7.9",
+      "ext-gd": "*"
     },
     "require-dev": {
         "symfony/var-dumper": "^4.2",
