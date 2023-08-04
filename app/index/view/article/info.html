@@ -83,55 +83,97 @@
             </div>
         </div>
 
-        <div class="tzt-panel">
-            <label id="AjaxCommentBegin"></label>
+        <div class="tzt-panel layui-collapse">
+            {foreach $feedback_list as $item}
+            <div class="layui-colla-item">
+                <div class="layui-colla-title">
+                    <span><a style="color:#00c11d;font-weight: 600">{$item.nickname}：</a>{$item.details}</span>
+                    <div style="float: right;color: #686868;font-size: 14px">
+                        {$item.add_time}
+                    </div>
+                </div>
+                <div class="layui-colla-content">
+                    <div class="layui-timeline">
+                        {foreach $item.reply as $reply}
+                        <div class="layui-timeline-item">
+                            <i class="layui-icon layui-timeline-axis layui-icon-face-smile"></i>
+                            <div class="layui-timeline-content layui-text">
+                                <a style="color:#5766e3;font-weight: 600">{$reply.nickname}：</a>{$reply.add_time|date="Y-m-d H:i"}
+                                <div class="layui-timeline-title">{$reply.details}</div>
+                            </div>
+                        </div>
+                        {/foreach}
+                        <button type="button" class="layui-btn layui-btn-xs"
+                                onclick="reply('{$item.id}','{$item.details}')">
+                            <i class="layui-icon layui-icon-survey"></i>回复
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+            {/foreach}
+            <hr>
+            <ul class="tzt-pagination">
+                <li>
+                    <a href="">首页</a>
+                </li>
+                {if $feedback_page > 1}
+                <li>
+                    <a href="?page={$feedback_page - 1}">上一页</a>
+                </li>
+                {/if}
+                <li class="active">
+                    <a id="page_num">{$feedback_page}</a>
+                </li>
+                {if $feedback_pages > $feedback_page}
+                <li>
+                    <a href="?page={$feedback_page + 1}">下一页</a>
+                </li>
+                {/if}
+                <li>
+                    <a>共{$feedback_pages}页</a>
+                </li>
+            </ul>
+            <hr>
             <!--评论框-->
-            <div id="comment-post" class="mt15"></div>
             <div class="mt15" id="divCommentPost">
                 <div class="tzt-panel_hd">
-                    <a class="pull-right" id="cancel-reply" href="javascript:;" style="display:none;">
-                        <i class="iconfont icon-delete"></i>
-                    </a>
-                    <h3>我要留言</h3>
+                    <h3>我要留言：<a id="reply_msg" style="font-size: 13px">新增</a><a onclick="qx()">x</a></h3>
                 </div>
                 <div class="tzt-panel_bd">
                     <div class="post">
-                        <form method="post" action="">
-                            <input type="hidden" name="inpId" id="inpId" value="31"/>
-                            <input type="hidden" name="inpRevID" id="inpRevID" value="0"/>
+                        <form class="layui-form" action="">
+                            <input type="text" name="aid" value="{$article_data.id}" lay-verify="required" hidden disabled/>
                             <div class="tzt-comment_input">
-                                <p><input type="text" name="inpName" id="inpName" class="form-control text" value="访客"
-                                          size="28" tabindex="1" placeholder="名称"/></p>
-                                <p class="center"><input type="text" name="inpEmail" id="inpEmail"
-                                                         class="form-control text" value="" size="28" tabindex="2"
-                                                         placeholder="邮箱"/></p>
-                                <p><input type="text" name="inpHomePage" id="inpHomePage" class="form-control text"
-                                          value="" size="28" tabindex="3" placeholder="主页"/></p>
+                                <p>
+                                    <input type="text" name="nickname" class="form-control text" value="访客"
+                                           size="28" lay-verify="required" placeholder="名称"/>
+                                </p>
+                                <p class="center">
+                                    <input type="text" name="contact"
+                                           class="form-control text" value="" size="28" tabindex="2" lay-verify="required"
+                                           placeholder="联系方式"/>
+                                </p>
                             </div>
-                            <p><textarea name="txaArticle" id="txaArticle" class="form-control text" cols="50" rows="4"
-                                         tabindex="5" placeholder="请输入内容"></textarea></p>
                             <p>
-                                <input type="text" name="inpVerify" id="inpVerify" class="form-control text" value=""
-                                       tabindex="4" placeholder="验证码"
+                                <textarea name="details" class="form-control text" cols="50" rows="4"
+                                          tabindex="5" lay-verify="required" placeholder="请输入内容"></textarea>
+                            </p>
+                            <p>
+                                <input type="text" name="verify" class="form-control text" value=""
+                                       tabindex="4" lay-verify="required" placeholder="验证码"
                                        style="display: inline-block; max-width: 120px; margin-right: 10px;">
-                                <img src="/api/VerificationCodeGenerator"
+                                <img id="verifyImg" src="/api/VerificationCodeGenerator"
                                      onclick="javascript:this.src='/api/VerificationCodeGenerator?tm='+Math.random();"
                                      style="max-width: 120px;height: 35px"/>
                             </p>
                             &nbsp;&nbsp;
                             <div class="text-center">
-                                <button type="submit" tabindex="6" onclick="return zbp.comment.post()"
+                                <button type="submit" lay-submit lay-filter="submit"
                                         class="btn btn-blue btn-width submit"><i class="iconfont icon-fillin"></i> 提交留言
                                 </button>
                             </div>
                         </form>
-                    </div>
-                </div>
-            </div>
-            <div class="tzt-dialog bottom" id="DialogComment">
-                <div class="page-bd">
-                    <div class="tzt-panel">
-                        <div id="comment-box"></div>
                     </div>
                 </div>
             </div>
@@ -140,12 +182,12 @@
     </div>
 </main>
 <script>
-    var img = $("img");
-    img.each(function() {
-        $(this).click(function() {
-            previewImg(this);
-        })
-    });
+    // var img = $("img");
+    // img.each(function() {
+    //     $(this).click(function() {
+    //         previewImg(this);
+    //     })
+    // });
     function previewImg(obj) {
         var img = new Image();
         img.src = obj.src;
@@ -164,5 +206,39 @@
             }
         });
     }
+    var id = '';
+
+    function reply(reply_id, details) {
+        id = reply_id;
+        $('#reply_msg').html('回复：' + details)
+
+    }
+
+    function qx() {
+        id = '';
+        $('#reply_msg').html('新增')
+    }
+
+    layui.use(['form'], function () {
+        var form = layui.form;
+        var laypage = layui.laypage;
+        //提交
+        form.on('submit(submit)', function (data) {
+            data.field.id = id
+            $.ajax('/feedback/add', {
+                type: 'post',
+                data: data.field,
+                success: function (res) {
+                    layer.msg(res.msg);
+                    $(".layui-laypage-btn").click();
+                    $("#verifyImg").click();
+                },
+                error: function (err) {
+                    layer.msg('系统开小车了');
+                }
+            })
+            return false;
+        });
+    });
 </script>
 {/block}

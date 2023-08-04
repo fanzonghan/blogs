@@ -16,7 +16,8 @@ use think\Exception;
  */
 class Article extends IndexController
 {
-    public function index(){
+    public function index()
+    {
 
     }
 
@@ -35,6 +36,18 @@ class Article extends IndexController
         ];
         $this->assign('article_data', $res);
         $this->assign('relevant_list', $relevant_list);
+        $FeedbackModel = new \app\model\Feedback();
+        $page = $this->request->get('page', 1);
+        $limit = $this->request->get('limit', 10);
+        $feedback_list = $FeedbackModel->where(['aid' => $id, 'status' => 0])->order('add_time desc')->page($page, $limit)->select()->toArray();
+        foreach ($feedback_list as &$item) {
+            $item['add_time'] = date('Y-m-d H:i', $item['add_time']);
+            $item['reply'] = json_decode($item['reply'], true) ?? [];
+        }
+        $total = $FeedbackModel->where(['aid' => $id, 'status' => 0])->count();
+        $this->assign('feedback_page', $page);
+        $this->assign('feedback_pages', ceil($total / $limit));
+        $this->assign('feedback_list', $feedback_list);
         return $this->fetch();
     }
 }

@@ -30,12 +30,12 @@ class Feedback extends IndexController
         $FeedbackModel = new \app\model\Feedback();
         $page = $this->request->get('page', 1);
         $limit = $this->request->get('limit', 10);
-        $list = $FeedbackModel->order('add_time desc')->page($page, $limit)->select()->toArray();
+        $list = $FeedbackModel->where(['aid' => 0, 'status' => 0])->order('add_time desc')->page($page, $limit)->select()->toArray();
         foreach ($list as &$item) {
             $item['add_time'] = date('Y-m-d H:i', $item['add_time']);
             $item['reply'] = json_decode($item['reply'], true) ?? [];
         }
-        $total = $FeedbackModel->count();
+        $total = $FeedbackModel->where(['aid' => 0, 'status' => 0])->count();
         $this->assign('total', $total);
         $this->assign('page', $page);
         $this->assign('pages', ceil($total / $limit));
@@ -53,6 +53,7 @@ class Feedback extends IndexController
         if (empty($post['id'])) {
             //留言
             $res = $FeedbackModel->save([
+                'aid' => $post['aid'] ?? 0,
                 'nickname' => $post['nickname'] ?? '',
                 'contact' => $post['contact'] ?? '',
                 'details' => $post['details'] ?? '',
