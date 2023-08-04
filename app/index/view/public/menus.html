@@ -3,7 +3,7 @@
     <li><a href="/" title="">首页</a></li>
     {foreach :menus() as $item}
       {foreach $item.z_cate as $cate}
-      <li><a href="/cate&id={$cate['id']}" title="">{$cate['name']}</a></li>
+      <li><a href="/cate?id={$cate['id']}" title="">{$cate['name']}</a></li>
       {/foreach}
     {/foreach}
     <li><a href="/feedback" title="">留言反馈</a></li>

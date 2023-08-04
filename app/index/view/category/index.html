@@ -29,7 +29,7 @@
         <div class="tzt-panel">
             <div class="tzt-panel_bd" id="article_list">
                 {foreach $article_list as $item}
-                <a href="/article&id={$item.id}" class="tzt-media-box" title="{$item.title}">
+                <a href="/article?id={$item.id}" class="tzt-media-box" title="{$item.title}">
                     <div class="tzt-media-box_hd">
                         <h3 class="tzt-media-box_title">{$item.title}</h3>
                         <div class="tzt-media-box_desc">
@@ -41,7 +41,7 @@
                             {$item.create_time}
                         </div>
                     </div>
-                    <div class="tzt-media-box_bd">
+                    <div class="tzt-media-box_bd" style="{$item.img==''?'display: none':''}">
                         <img src="{$item.img}" alt="{$item.title}">
                     </div>
                 </a>
@@ -54,7 +54,7 @@
                     </li>
                     {if $page > 1}
                     <li>
-                        <a href="/&page={$page - 1}">上一页</a>
+                        <a href="?page={$page - 1}">上一页</a>
                     </li>
                     {/if}
                     <li class="active">
@@ -62,7 +62,7 @@
                     </li>
                     {if $total > $page}
                     <li>
-                        <a href="/&page={$page + 1}">下一页</a>
+                        <a href="?page={$page + 1}">下一页</a>
                     </li>
                     {/if}
                     <li>
