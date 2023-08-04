@@ -12,10 +12,27 @@
     <link rel="stylesheet" href="/static/prism/one/prism.css">
     <script src="/static/prism/one/prism.js"></script>
     <script src="/static/js/layui/layui.js"></script>
+    <script src="/static/js/index.js"></script>
 </head>
 <body>
 {block name="header"}{/block}
 {block name="main"}{/block}
+<!--<div class="fixed m-hidden">-->
+<!--    <div class="page-bd">-->
+<!--        <div class="tzt-player">-->
+<!--            <div class="tzt-panel" style="padding:5px 10px 5px 10px">-->
+<!--                {include file="/public/music"}-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="page-bd">-->
+<!--        <div class="tzt-code">-->
+<!--            <div class="tzt-panel">-->
+<!--                {include file="/public/code"}-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 <footer class="footer">
     <div class="page-bd">
         <div class="text-center text-muted">
@@ -24,21 +41,7 @@
     </div>
 </footer>
 <script>
-    $('#search').click(function () {
-        let keyword = $('#keyword').val();
-        if (keyword == '' || keyword == undefined) {
-            layer.msg('搜索内容不能为空');
-            return;
-        }
-        window.location.replace("/search?keyword=" + keyword);
-    })
-    var img = $("img");
-    img.on("contextmenu", function () {
-        return false;
-    });
-    img.on("dragstart", function () {
-        return false;
-    });
+
 </script>
 </body>
 </html>
