@@ -58,6 +58,7 @@ class Feedback extends IndexController
                 'contact' => $post['contact'] ?? '',
                 'details' => $post['details'] ?? '',
                 'reply' => '',
+                'ip' => get_user_ip(),
                 'add_time' => time(),
             ]);
             if (!$res) return json(['code' => 0, 'msg' => '留言失败']);
@@ -71,6 +72,7 @@ class Feedback extends IndexController
                 'nickname' => $post['nickname'] ?? '',
                 'contact' => $post['contact'] ?? '',
                 'details' => $post['details'] ?? '',
+                'ip' => get_user_ip(),
                 'add_time' => time(),
             ]);
             $reply = json_encode($reply, 256);
