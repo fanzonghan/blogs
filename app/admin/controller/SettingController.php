@@ -28,6 +28,9 @@ class SettingController extends AdminController
                     case 'storage':
                         $this->storage($post);
                         break;
+                    case 'music':
+                        $this->music($post);
+                        break;
                 }
                 return json(['code' => 1, 'msg' => '修改成功']);
             } catch (\Exception $e) {
@@ -58,5 +61,15 @@ class SettingController extends AdminController
         $SystemConfig->where('name', 'secretKey')->where('group', 'qiniu')->update(['value' => $data['secretKey']]);
         $SystemConfig->where('name', 'bucket')->where('group', 'qiniu')->update(['value' => $data['bucket']]);
         $SystemConfig->where('name', 'yzurl')->where('group', 'qiniu')->update(['value' => $data['yzurl']]);
+    }
+
+    //音乐配置修改
+    public function music($data)
+    {
+        $SystemConfig = new SystemConfig();
+        //更新七牛云配置
+        $SystemConfig->where('name', 'name')->where('group', 'music')->update(['value' => $data['name']]);
+        $SystemConfig->where('name', 'img')->where('group', 'music')->update(['value' => $data['img']]);
+        $SystemConfig->where('name', 'url')->where('group', 'music')->update(['value' => $data['url']]);
     }
 }

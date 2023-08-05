@@ -1,0 +1,26 @@
+<form class="layui-form" action="">
+    <input name="type" value="music" hidden disabled>
+    <div class="layui-form-item">
+        <label class="layui-form-label">音乐名</label>
+        <div class="layui-input-block">
+            <input type="text" name="name" autocomplete="off" placeholder="请输入音乐名" value="{:sys_config('name','music')}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">音乐封面</label>
+        <div class="layui-input-block">
+            <input type="text" name="img" autocomplete="off" placeholder="请输入音乐封面" value="{:sys_config('img','music')}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">音频地址</label>
+        <div class="layui-input-block">
+            <input type="text" name="url" autocomplete="off" placeholder="请输入音频地址" value="{:sys_config('url','music')}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="submit" class="layui-btn" lay-submit lay-filter="submit">立即提交</button>
+        </div>
+    </div>
+</form>
