@@ -29,7 +29,7 @@
 {block name="main"}
 <main class="page">
     <div class="page-bd">
-        <div class="tzt-panel">
+        <div class="tzt-panel pvImg">
             <div class="tzt-panel_hd">
                 <div class="tzt-panel_bread">
                     <span>当前位置：</span>
@@ -182,30 +182,6 @@
     </div>
 </main>
 <script>
-    // var img = $("img");
-    // img.each(function() {
-    //     $(this).click(function() {
-    //         previewImg(this);
-    //     })
-    // });
-    function previewImg(obj) {
-        var img = new Image();
-        img.src = obj.src;
-        var imgHtml = "<img src='" + obj.src + "' height='100%' width='100%'/>";
-        //弹出层
-        layer.open({
-            type: 1,
-            shade: false,
-            title: '图片预览', //不显示标题
-            closeBtn:1,
-            scrollbar:false,
-            area:['auto','100%'],
-            content: imgHtml, //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
-            cancel: function () {
-
-            }
-        });
-    }
     var id = '';
 
     function reply(reply_id, details) {

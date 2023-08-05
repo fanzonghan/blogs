@@ -22,6 +22,7 @@ class TagServices extends BaseServices
         $list = $this->model->where('is_del',0)->field('id as value,name as label')->select();
         return $list;
     }
+
     public function getList($where = [],$page = 0,$limit = 0){
         $list = $this->model->where('is_del',0)->when(!empty($where), function ($query)use($where){
             $query->where($where);
@@ -35,7 +36,4 @@ class TagServices extends BaseServices
         return ['list' => $list, 'total' => ceil($count / $limit)];
     }
 
-    public function edit($id,$data){
-
-    }
 }

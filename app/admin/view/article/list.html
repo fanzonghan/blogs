@@ -37,7 +37,7 @@
         // 创建渲染实例
         table.render({
             elem: '#test',
-            url: 'list', // 此处为静态模拟数据，实际使用时需换成真实接口
+            url: 'list',
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports', 'print', {
                 title: '提示',
@@ -56,20 +56,27 @@
                 // },
                 {field: 'title', title: '标题', minWidth: 180},
                 {
-                    field: 'category', title: '分类', width: 180, templet: function (res) {
-                        return '分类一';
+                    field: 'category', title: '分类', width: 80, templet: function (res) {
+                        return '<span class="layui-badge-rim">' + res.category.name + '</span>';
                     }
                 },
                 {
-                    field: 'userInfo', title: '作者', width: 150, templet: function (res) {
+                    field: 'userInfo', title: '作者', width: 80, templet: function (res) {
                         return res.user.nickname;
                     }
                 },
-                {field: 'browse_num', title: '浏览量', width: 150},
-                {field: 'like_num', title: '点赞量', width: 150},
+                {field: 'browse_num', title: '浏览量', width: 80},
+                {field: 'like_num', title: '点赞量', width: 80},
                 {
-                    field: 'status', title: '状态', width: 150, templet: function (res) {
-                        return '正常';
+                    field: 'status', title: '状态', width: 120, templet: function (res) {
+                        switch (res.status) {
+                            case -1:
+                                return '<span class="layui-badge">删除</span>';
+                            case 0:
+                                return '<span class="layui-badge layui-bg-orange">审核中</span>';
+                            case 1:
+                                return '<span class="layui-badge layui-bg-green">正常</span>';
+                        }
                     }
                 },
                 {field: 'create_time', title: '添加时间', width: 150},
@@ -139,17 +146,24 @@
                     }
                 });
             } else if (obj.event === 'more') {
+                let xl = [];
+                if (data.sl != 1) {
+                    xl.push({
+                        title: '提交收录',
+                        val: 'sl'
+                    });
+                }
+                if (data.is_del != 1) {
+                    xl.push({
+                        title: '删除',
+                        val: 'del'
+                    });
+                }
                 // 更多下拉菜单
                 dropdown.render({
                     elem: this,
                     show: true, // 外部事件触发即显示
-                    data: [{
-                        title: '提交收录',
-                        val: 'sl'
-                    }, {
-                        title: '删除',
-                        val: 'del'
-                    }],
+                    data: xl,
                     click: function (data, othis) {
                         //根据 id 做出不同操作
                         if (data.val === 'del') {

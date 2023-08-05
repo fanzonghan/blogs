@@ -23,4 +23,16 @@ class BlogrollServices extends BaseServices
         $list = $this->model->where('status',1)->select()->toArray();
         return $list;
     }
+    public function getList($where = [],$page = 0,$limit = 0){
+        $list = $this->model->when(!empty($where), function ($query)use($where){
+            $query->where($where);
+        })->page($page,$limit)->select();
+        foreach ($list as &$item) {
+            $item['add_time'] = date('Y-m-d H:i',$item['add_time']);
+        }
+        $count = $this->model->when(!empty($where), function ($query)use($where){
+            $query->where($where);
+        })->count();
+        return ['list' => $list, 'total' => ceil($count / $limit)];
+    }
 }

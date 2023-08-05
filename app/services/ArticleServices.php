@@ -27,16 +27,16 @@ class ArticleServices extends BaseServices
 
     public function list($where, $page, $limit)
     {
-        $list = $this->model->where('is_del',0)->with(['category' => function ($query) {
+        $list = $this->model->where('is_del', 0)->with(['category' => function ($query) {
             $query->visible(['name']);
-        },'user'])->order('update_time desc')->where($where)->page($page, $limit)->select()->toArray();
+        }, 'user'])->order('update_time desc')->where($where)->page($page, $limit)->select()->toArray();
         $count = $this->model->where($where)->count();
         return ['list' => $list, 'total' => ceil($count / $limit)];
     }
 
     public function info($id): array
     {
-        $info = $this->model->where('is_del',0)->with([
+        $info = $this->model->where('is_del', 0)->with([
             'category' => function ($query) {
                 $query->visible(['name']);
             }, 'articleDescription' => function ($query) {
@@ -60,6 +60,7 @@ class ArticleServices extends BaseServices
         return $info;
     }
 
+    //文章添加
     public function add($uid, $data)
     {
         $ArticleDescription = new ArticleDescription();
@@ -85,27 +86,39 @@ class ArticleServices extends BaseServices
             throw new ApiException("添加失败:" . $e->getMessage());
         }
     }
-    public function edit($id, $data){
+
+    //文章编辑
+    public function edit($id, $data)
+    {
         $ArticleDescription = new ArticleDescription();
         Db::startTrans();
         try {
-            $articleInfo = $this->model->where('id',$id)->find();
-            $ArticleDescription->where('id',$articleInfo->description)->update([
-                'description' => $data['desc'],
-            ]);
-            $res = $articleInfo->save([
-                'title' => $data['title'],
-                'alias' => $data['alias'],
-                'img' => $data['img'],
-                'category_id' => $data['category_id'],
-                'tag' => $data['tags'],
-                'status' => 1,
-            ]);
+            $articleInfo = $this->model->where('id', $id)->find();
+            if (isset($data['desc'])) {
+                $ArticleDescription->where('id', $articleInfo->description)->update([
+                    'description' => $data['desc'],
+                ]);
+            }
+            $sava = [];
+            if (isset($data['title'])) $sava['title'] = $data['title'];
+            if (isset($data['alias'])) $sava['alias'] = $data['alias'];
+            if (isset($data['img'])) $sava['img'] = $data['img'];
+            if (isset($data['category_id'])) $sava['category_id'] = $data['category_id'];
+            if (isset($data['tags'])) $sava['tag'] = $data['tags'];
+            if (isset($data['status'])) $sava['status'] = $data['status'] ?? 1;
+            if (isset($data['is_del'])) $sava['is_del'] = $data['is_del'] ?? 0;
+            $res = $articleInfo->save($sava);
             Db::commit();
             return $res;
         } catch (\Exception $e) {
             Db::rollback();
             throw new ApiException("修改失败:" . $e->getMessage());
         }
+    }
+
+    //删除
+    public function del($id)
+    {
+
     }
 }

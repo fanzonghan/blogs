@@ -22,22 +22,22 @@ class AdminController extends BaseController
         parent::__construct($app);
         $this->app     = $app;
         $this->request = $this->app->request;
-        // 控制器初始化
-        $this->initialize();
     }
 
-
-    // 初始化
-    protected function initialize()
+    /**
+     * @return mixed
+     */
+    public function getAdminInfo()
     {
-        $gl_rule = [
-            'login',
-        ];
-        if(!in_array($this->request->rule()->getRule(), $gl_rule)){
-            if(empty(Cache::get('adminInfo'))){
-                $this->error('未登录，请登陆',[],'/admin/login');
-            }
-            $this->adminInfo = Cache::get('adminInfo');
-        }
+        return $this->adminInfo;
     }
+
+    /**
+     * @param mixed $adminInfo
+     */
+    public function setAdminInfo($adminInfo): void
+    {
+        $this->adminInfo = $adminInfo;
+    }
+
 }

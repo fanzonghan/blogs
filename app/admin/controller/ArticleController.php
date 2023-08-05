@@ -109,7 +109,14 @@ class ArticleController extends AdminController
 
     public function del(Request $request)
     {
-        return json(['code' => 1, 'msg' => '修改成功']);
+        $id = $request->get('id', '');
+        if (empty($id)) return json(['code' => 0, 'msg' => '文章不存在']);
+        $res = $this->services->edit($id, ['is_del' => 1, 'status' => -1]);
+        if ($res) {
+            return json(['code' => 1, 'msg' => '删除成功']);
+        } else {
+            return json(['code' => 0, 'msg' => '删除失败']);
+        }
     }
 
     /**
@@ -120,16 +127,19 @@ class ArticleController extends AdminController
     {
         $id = $request->get('id', 0);
         if (empty($id)) return json(['code' => 0, 'msg' => '不能为空']);
+        $info = Article::where('id', $id)->find();
+        if (!$info) return json(['code' => 0, 'msg' => '文章不存在']);
+        if ($info['sl']) return json(['code' => 0, 'msg' => '该文章已提交收录,不要重复提交哦']);
         /** @var ExtendServices $ExtendServices */
         $ExtendServices = app()->make(ExtendServices::class);
         $system_url = sys_config('system_url');
         $article_url = $system_url . '/' . 'article/' . $id;
         $res = $ExtendServices->BaiduRecord([$article_url]);
-        if(isset($res['success']) && $res['success'] > 0){
+        if (isset($res['success']) && $res['success'] > 0) {
             //成功
-            Article::where('id',$id)->update(['sl'=>1]);
+            Article::where('id', $id)->update(['sl' => 1]);
             return json(['code' => 1, 'msg' => '提交成功']);
-        }else{
+        } else {
             //失败
             return json(['code' => 0, 'msg' => $res['message'] ?? 'error']);
         }

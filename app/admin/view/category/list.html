@@ -27,7 +27,8 @@
                 {field: 'update_time', title: '更新时间'},
                 { fixed: "right", title: "操作", width: 181, align: "center", toolbar: "#treeTable-demo-tools"}
             ]],
-            page: true
+            page: true,
+            skin: 'line', //表格风格
         });
         // 触发单元格工具事件
         treeTable.on('tool(treeTable-demo)', function (obj) {

@@ -14,4 +14,7 @@ class Index extends AdminController
     public function home(){
         return $this->fetch();
     }
+    public function clear(){
+        $this->success('清除成功');
+    }
 }

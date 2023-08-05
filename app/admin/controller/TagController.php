@@ -27,7 +27,7 @@ class TagController extends AdminController
         $this->services = $tagServices;
     }
 
-    public function lst(Request $request)
+    public function list(Request $request)
     {
         if ($request->isAjax()) {
             $page = $request->get('page', 1);
@@ -35,7 +35,7 @@ class TagController extends AdminController
             $list = $this->services->getList([], $page, $limit);
             return json(['code' => 0, 'data' => $list, 'msg' => 'success']);
         }
-        return $this->fetch('tag/lst');
+        return $this->fetch('tag/list');
     }
 
     public function edit(Request $request)
