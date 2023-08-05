@@ -59,16 +59,4 @@ class SettingController extends AdminController
         $SystemConfig->where('name', 'bucket')->where('group', 'qiniu')->update(['value' => $data['bucket']]);
         $SystemConfig->where('name', 'yzurl')->where('group', 'qiniu')->update(['value' => $data['yzurl']]);
     }
-    public function banner(Request $request){
-        if ($request->isAjax()) {
-            $post = $request->post();
-            try {
-
-                return json(['code' => 1, 'msg' => '保存成功']);
-            } catch (\Exception $e) {
-                return json(['code' => 0, 'msg' => '保存失败：' . $e->getMessage()]);
-            }
-        }
-        return $this->fetch('setting/banner');
-    }
 }

@@ -82,7 +82,7 @@
                 "F_ModuleId": "M3",
                 "F_ParentId": "0",
                 "F_EnCode": "MoreManage",
-                "F_FullName": "更多",
+                "F_FullName": "扩展设置",
                 "F_Icon": "fa fa-desktop",
             },
             {
@@ -91,7 +91,7 @@
                 "F_EnCode": "MoreBanner",//编码
                 "F_FullName": "轮播图",//全名
                 "F_Icon": "fa fa-leaf",//图标
-                "F_UrlAddress": "/admin/Article/add",//URL地址
+                "F_UrlAddress": "/admin/system/banner/list",//URL地址
             },
             {
                 "F_ModuleId": "m3-2",//模块ID
@@ -101,6 +101,21 @@
                 "F_Icon": "fa fa-leaf",//图标
                 "F_UrlAddress": "/admin/blog_roll/list",//URL地址
             },
+            {
+                "F_ModuleId": "M4",
+                "F_ParentId": "0",
+                "F_EnCode": "WhManage",
+                "F_FullName": "维护",
+                "F_Icon": "fa fa-desktop",
+            },
+            {
+                "F_ModuleId": "m4-1",//模块ID
+                "F_ParentId": "M4",//父级ID
+                "F_EnCode": "WhLog",//编码
+                "F_FullName": "日志",//全名
+                "F_Icon": "fa fa-leaf",//图标
+                "F_UrlAddress": "/admin/system/log/list",//URL地址
+            }
         ];
         var _html = "";
         $.each(data, function (i) {

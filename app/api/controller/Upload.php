@@ -20,7 +20,7 @@ class Upload
     private $type = '';// local：本地 qiniu：七牛云
     public function __construct()
     {
-        $this->type = sys_config('storage_type','local');
+        $this->type = sys_config('storage_type','system','local');
     }
 
     public function uploads()
@@ -45,7 +45,7 @@ class Upload
                     ];
                     break;
                 default:
-                    throw new \Exception('未配置上传方式');
+                    throw new \Exception('未配置上传方式：'.$this->type);
             }
             return app('json')->success($data);
         } catch (\Exception $e) {

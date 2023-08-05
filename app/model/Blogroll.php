@@ -11,7 +11,7 @@ use xiaofan\basic\BaseModel;
  * @date 2023/7/1 0:36
  * @version 1.0
  */
-class Blogrool extends BaseModel
+class Blogroll extends BaseModel
 {
     /**
      * 数据表主键

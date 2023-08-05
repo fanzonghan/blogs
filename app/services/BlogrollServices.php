@@ -3,7 +3,7 @@
 
 namespace app\services;
 
-use app\model\Blogrool;
+use app\model\Blogroll;
 use xiaofan\basic\BaseServices;
 
 /**
@@ -14,7 +14,7 @@ use xiaofan\basic\BaseServices;
  */
 class BlogrollServices extends BaseServices
 {
-    public function __construct(Blogrool $blogrool)
+    public function __construct(Blogroll $blogrool)
     {
         $this->model = $blogrool;
     }
@@ -23,14 +23,15 @@ class BlogrollServices extends BaseServices
         $list = $this->model->where('status',1)->select()->toArray();
         return $list;
     }
+
     public function getList($where = [],$page = 0,$limit = 0){
-        $list = $this->model->when(!empty($where), function ($query)use($where){
+        $list = $this->model->where('status',1)->when(!empty($where), function ($query)use($where){
             $query->where($where);
         })->page($page,$limit)->select();
         foreach ($list as &$item) {
             $item['add_time'] = date('Y-m-d H:i',$item['add_time']);
         }
-        $count = $this->model->when(!empty($where), function ($query)use($where){
+        $count = $this->model->where('status',1)->when(!empty($where), function ($query)use($where){
             $query->where($where);
         })->count();
         return ['list' => $list, 'total' => ceil($count / $limit)];

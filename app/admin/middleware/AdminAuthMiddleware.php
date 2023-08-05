@@ -1,8 +1,9 @@
 <?php
 
 
-namespace app\admin;
+namespace app\admin\middleware;
 
+use app\admin\AdminController;
 use think\exception\HttpResponseException;
 use think\facade\Cache;
 
@@ -21,13 +22,13 @@ class AdminAuthMiddleware
         $gl_rule = [
             'login',
         ];
-        if(!in_array($request->rule()->getRule(), $gl_rule)){
-            if(empty(Cache::get('adminInfo'))){
+        if (!in_array($request->rule()->getRule(), $gl_rule)) {
+            if (empty(Cache::get('adminInfo'))) {
                 $result = [
                     'code' => 0,
-                    'msg'  => '未登录，请登陆',
+                    'msg' => '未登录，请登陆',
                     'data' => [],
-                    'url'  => '/admin/login',
+                    'url' => '/admin/login',
                     'wait' => 3,
                 ];
                 $response = view(app()->getRootPath() . '/xiaofan/tpl/dispatch_jump.tpl', $result);

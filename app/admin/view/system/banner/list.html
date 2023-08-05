@@ -19,10 +19,11 @@
 {/block}
 {block name="js"}
 <script>
-    layui.use(['table', 'dropdown', 'form'], function () {
+    layui.use(['table', 'dropdown', 'form', 'upload'], function () {
         var table = layui.table;
         var dropdown = layui.dropdown;
         var form = layui.form;
+        var upload = layui.upload;
 
         // 创建渲染实例
         table.render({
@@ -39,18 +40,13 @@
             cols: [[
                 {type: 'checkbox',},
                 {field: 'id', title: 'ID', width: 80},
-                {field: 'name', title: '标题', minWidth: 180},
-                {field: 'url', title: '链接', minWidth: 180},
                 {
-                    field: 'status', title: '状态', width: 150, templet: function (res) {
-                        switch (res.status) {
-                            case 0:
-                                return '<span class="layui-badge layui-bg-orange">隐藏</span>';
-                            case 1:
-                                return '<span class="layui-badge layui-bg-green">显示</span>';
-                        }
+                    field: 'value', title: '图片', width: 240, templet: function (res) {
+                        return '<img class="pvImg" src="' + res.value + '" style="height: 100%" />';
                     }
                 },
+                {field: 'name', title: '标题', minWidth: 180},
+                {field: 'remark', title: '备注', minWidth: 180},
                 {field: 'add_time', title: '添加时间', width: 150},
                 {fixed: 'right', title: '操作', width: 134, minWidth: 125, toolbar: '#barDemo'}
             ]]
@@ -79,12 +75,24 @@
                 case 'add':
                     layer.open({
                         type: 1,
-                        area: '350px',
+                        area: '450px',
                         resize: false,
                         shadeClose: true,
                         title: '添加',
                         content: `<div class="layui-form" lay-filter="filter-test-layer" style="margin: 16px;">
             <div class="demo-login-container">
+              <div class="layui-form-item">
+                <div class="layui-upload-drag" id="update">
+                    <div id="uploadMsg">
+                        <i class="layui-icon"></i>
+                        <p>点击上传，或将文件拖拽到此处</p>
+                    </div>
+                    <input id="surfacePlot" name="imgSrc" value="" hidden>
+                    <div class="layui-hide" id="uploadView">
+                        <img src="" alt="上传成功后渲染" style="max-width: 196px">
+                    </div>
+                </div>
+            </div>
               <div class="layui-form-item">
                 <div class="layui-input-wrap">
                   <div class="layui-input-prefix">
@@ -98,7 +106,7 @@
                   <div class="layui-input-prefix">
                     <i class="layui-icon layui-icon-password"></i>
                   </div>
-                  <input type="text" name="url" value="" lay-verify="required" placeholder="链接" lay-reqtext="请填写链接" autocomplete="off" class="layui-input">
+                  <input type="text" name="remark" value="" lay-verify="required" placeholder="备注" lay-reqtext="请填写备注" autocomplete="off" class="layui-input">
                 </div>
               </div>
               <div class="layui-form-item">
@@ -123,6 +131,22 @@
                                 })
                                 return false; // 阻止默认 form 跳转
                             });
+                            //上传
+                            upload.render({
+                                elem: '#update'
+                                , url: '/api/upload/uploads' //此处用的是第三方的 http 请求演示，实际使用时改成您自己的上传接口即可。
+                                , field: 'upload-image'
+                                , done: function (res) {
+                                    if(res.status == 400){
+                                        layer.msg(res.msg);
+                                    }else{
+                                        layer.msg('上传成功');
+                                        layui.$('#uploadView').removeClass('layui-hide').find('img').attr('src', res.data.url);
+                                        layui.$('#uploadMsg').addClass('layui-hide');
+                                        $('#surfacePlot').val(res.data.url);
+                                    }
+                                }
+                            });
                         }
                     });
                     break;
@@ -143,6 +167,18 @@
                     content: `<div class="layui-form" lay-filter="filter-test-layer" style="margin: 16px;">
             <div class="demo-login-container">
               <div class="layui-form-item">
+                <div class="layui-upload-drag" id="update">
+                    <div id="uploadMsg" class="layui-hide">
+                        <i class="layui-icon"></i>
+                        <p>点击上传，或将文件拖拽到此处</p>
+                    </div>
+                    <input id="surfacePlot" name="imgSrc" value="` + data.value + `" class="layui-hide">
+                    <div id="uploadView">
+                        <img src="` + data.value + `" alt="上传成功后渲染" style="max-width: 196px">
+                    </div>
+                </div>
+            </div>
+              <div class="layui-form-item">
                 <div class="layui-input-wrap">
                   <div class="layui-input-prefix">
                     <i class="layui-icon layui-icon-username"></i>
@@ -155,7 +191,7 @@
                   <div class="layui-input-prefix">
                     <i class="layui-icon layui-icon-password"></i>
                   </div>
-                  <input type="text" name="url" value="` + data.url + `" lay-verify="required" placeholder="链接" lay-reqtext="请填写链接" autocomplete="off" class="layui-input">
+                  <input type="text" name="remark" value="` + data.remark + `" lay-verify="required" placeholder="备注" lay-reqtext="请填写备注" autocomplete="off" class="layui-input">
                 </div>
               </div>
               <div class="layui-form-item">
@@ -180,6 +216,22 @@
                                 }
                             })
                             return false; // 阻止默认 form 跳转
+                        });
+                        //上传
+                        upload.render({
+                            elem: '#update'
+                            , url: '/api/upload/uploads' //此处用的是第三方的 http 请求演示，实际使用时改成您自己的上传接口即可。
+                            , field: 'upload-image'
+                            , done: function (res) {
+                                if(res.status == 400){
+                                    layer.msg(res.msg);
+                                }else{
+                                    layer.msg('上传成功');
+                                    layui.$('#uploadView').removeClass('layui-hide').find('img').attr('src', res.data.url);
+                                    layui.$('#uploadMsg').addClass('layui-hide');
+                                    $('#surfacePlot').val(res.data.url);
+                                }
+                            }
                         });
                     }
                 });

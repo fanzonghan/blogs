@@ -8,7 +8,7 @@ Route::group(function () {
     Route::rule('home', 'Index/home');
     Route::get('logout', 'LoginController/logout');
     Route::get('clear', 'Index/clear');
-})->middleware(\app\admin\AdminAuthMiddleware::class);
+})->middleware(\app\admin\middleware\AdminAuthMiddleware::class);
 
 //文章
 Route::group('article', function () {
@@ -23,7 +23,7 @@ Route::group('article', function () {
     //提交收录
     Route::get('gather', 'ArticleController/gather');
 
-})->middleware(\app\admin\AdminAuthMiddleware::class);
+})->middleware(\app\admin\middleware\AdminAuthMiddleware::class);
 
 //分类
 Route::group('category', function () {
@@ -36,12 +36,12 @@ Route::group('category', function () {
     //删除
     Route::get('del', 'CategoryController/del');
 
-})->middleware(\app\admin\AdminAuthMiddleware::class);
+})->middleware(\app\admin\middleware\AdminAuthMiddleware::class);
 
 //基本配置
 Route::group('setting', function () {
     Route::rule('config', 'SettingController/config');
-})->middleware(\app\admin\AdminAuthMiddleware::class);
+})->middleware(\app\admin\middleware\AdminAuthMiddleware::class);
 
 //标签
 Route::group('tag', function () {
@@ -53,7 +53,7 @@ Route::group('tag', function () {
     Route::rule('add', 'TagController/add');
     //删除
     Route::get('del', 'TagController/del');
-})->middleware(\app\admin\AdminAuthMiddleware::class);
+})->middleware(\app\admin\middleware\AdminAuthMiddleware::class);
 
 //标签
 Route::group('blog_roll', function () {
@@ -65,4 +65,18 @@ Route::group('blog_roll', function () {
     Route::rule('add', 'BlogrollController/add');
     //删除
     Route::get('del', 'BlogrollController/del');
-})->middleware(\app\admin\AdminAuthMiddleware::class);
+})->middleware(\app\admin\middleware\AdminAuthMiddleware::class);
+
+//系统
+Route::group('system', function () {
+    //日志
+    Route::rule('log/list', 'SystemController/log_list');
+    //轮播图
+    Route::rule('banner/list', 'SystemController/banner_list');
+    //添加轮播图
+    Route::post('banner/add', 'SystemController/banner_add');
+    //修改轮播图
+    Route::post('banner/edit', 'SystemController/banner_edit');
+    //删除轮播图
+    Route::get('banner/del', 'SystemController/banner_del');
+})->middleware(\app\admin\middleware\AdminAuthMiddleware::class);
