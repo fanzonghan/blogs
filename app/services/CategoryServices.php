@@ -30,14 +30,14 @@ class CategoryServices extends BaseServices
     public function treeList($where){
         $page = $where['page'];
         $limit = $where['limit'];
-        $list = $this->model->where('pid',0)->where('status',1)->order('create_time desc')->page($page,$limit)->select();
+        $list = $this->model->where('pid',0)->where('status',1)->order('add_time desc')->page($page,$limit)->select();
         $list = $this->treeDate($list);
         return $list;
     }
 
     public function treeDate($data){
         foreach ($data as &$item) {
-            $item['children'] = $this->model->where('pid',$item['id'])->where('status',1)->order('create_time desc')->select();
+            $item['children'] = $this->model->where('pid',$item['id'])->where('status',1)->order('add_time desc')->select();
         }
         return $data;
     }
