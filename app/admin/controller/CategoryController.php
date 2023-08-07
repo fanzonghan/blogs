@@ -35,7 +35,7 @@ class CategoryController extends AdminController
         $CategoryModel = new Category();
         $post = $request->post();
         $post['status'] = 1;
-        $post['create_time'] = time();
+        $post['add_time'] = time();
         $post['update_time'] = time();
         $res = $CategoryModel->save($post);
         if ($res) {
