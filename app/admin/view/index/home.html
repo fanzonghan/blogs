@@ -47,13 +47,13 @@
                         <div class="stat-icon">
                             <i class="fa fa-clock-o"></i>
                         </div>
-                        <h2 class="m-top-none">20<span>个</span></h2>
+                        <h2 class="m-top-none">{$articleTotal}<span>个</span></h2>
                         <h5>文章数量</h5>
                     </div>
                 </div>
                 <div class="dashboard-stats">
                     <div class="dashboard-stats-item" style="background-color: #e35b5a;">
-                        <h2 class="m-top-none">12<span>条</span></h2>
+                        <h2 class="m-top-none">{$articleTotal}<span>条</span></h2>
                         <h5>热门文章</h5>
                         <div class="stat-icon">
                             <i class="fa fa-bell"></i>
@@ -62,7 +62,7 @@
                 </div>
                 <div class="dashboard-stats">
                     <div class="dashboard-stats-item" style="background-color: #44b6ae;">
-                        <h2 class="m-top-none">20<span>封</span></h2>
+                        <h2 class="m-top-none">{$feedbackTotal}<span>封</span></h2>
                         <h5>留言</h5>
                         <div class="stat-icon">
                             <i class="fa fa-envelope-o"></i>
@@ -71,11 +71,22 @@
                 </div>
                 <div class="dashboard-stats">
                     <div class="dashboard-stats-item" style="background-color: #8775a7; margin-right: 0px;">
-                        <h2 class="m-top-none">6</h2>
-                        <h5>对公待签收任务</h5>
+                        <h2 class="m-top-none">{$day_user_beg}</h2>
+                        <h5>当日用户请求量</h5>
                         <div class="stat-icon">
                             <i class="fa fa-gavel"></i>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div style="height: 100%; border: 1px solid #e6e6e6; overflow: hidden;">
+                <div class="dashboard-stats">
+                    <div class="dashboard-stats-item" style="background-color: #578ebe;">
+                        <div class="stat-icon">
+                            <i class="fa fa-clock-o"></i>
+                        </div>
+                        <h2 class="m-top-none">{$day_user_num}<span>个</span></h2>
+                        <h5>当日用户数量</h5>
                     </div>
                 </div>
             </div>
