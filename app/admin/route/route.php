@@ -4,10 +4,11 @@ use think\facade\Route;
 
 Route::rule('login', 'LoginController/login');
 Route::group(function () {
-    Route::rule('index', 'Index/index');
+    Route::rule('/', 'Index/index');
     Route::rule('home', 'Index/home');
     Route::get('logout', 'LoginController/logout');
     Route::get('clear', 'Index/clear');
+    Route::rule('info','Index/info');
 })->middleware(\app\admin\middleware\AdminAuthMiddleware::class);
 
 //文章
@@ -80,3 +81,4 @@ Route::group('system', function () {
     //删除轮播图
     Route::get('banner/del', 'SystemController/banner_del');
 })->middleware(\app\admin\middleware\AdminAuthMiddleware::class);
+Route::miss('Index/index')->middleware(\app\admin\middleware\AdminAuthMiddleware::class);

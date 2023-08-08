@@ -7,14 +7,17 @@ use app\admin\AdminController;
 use app\model\Article;
 use app\model\Feedback;
 use app\model\SystemLog;
+use think\facade\Cache;
 
 class Index extends AdminController
 {
+    //首页
     public function index()
     {
+        $this->assign('info',Cache::get('adminInfo'));
         return $this->fetch();
     }
-
+    //主页
     public function home()
     {
         $ArticleModel = new Article();
@@ -27,9 +30,14 @@ class Index extends AdminController
         $this->assign(['articleTotal' => $articleTotal, 'feedbackTotal' => $feedbackTotal, 'day_user_beg' => $day_user_beg,'day_user_num'=>$day_user_num]);
         return $this->fetch();
     }
-
+    //清除缓存
     public function clear()
     {
+
         $this->success('清除成功');
+    }
+    //管理员信息
+    public function info(){
+        return $this->fetch();
     }
 }

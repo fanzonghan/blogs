@@ -4,9 +4,9 @@ $fileValue = '';
 //最低php版本要求
 define('PHP_EDITION', '7.1.0');
 //服务环境检测
-if (function_exists('saeAutoLoader') || isset($_SERVER['HTTP_BAE_ENV_APPID'])) {
-    showHtml('对不起，当前环境不支持本系统，请使用独立服务或云主机！');
-}
+//if (function_exists('saeAutoLoader') || isset($_SERVER['HTTP_BAE_ENV_APPID'])) {
+//    showHtml('对不起，当前环境不支持本系统，请使用独立服务或云主机！');
+//}
 
 define('APP_DIR', _dir_path(substr(dirname(__FILE__), 0, -15)));//项目目录
 define('SITE_DIR', _dir_path(substr(dirname(__FILE__), 0, -8)));//入口文件目录
@@ -239,7 +239,7 @@ switch ($step) {
             $dbPrefix = empty($_POST['dbprefix']) ? 'xf_' : trim($_POST['dbprefix']);
 
             $username = trim($_POST['manager']);
-            $password = trim($_POST['manager_pwd']) ?: 'crmeb.com';
+            $password = trim($_POST['manager_pwd']) ?: 'xiaofan.ink';
 
             if (!function_exists('mysqli_connect')) {
                 $arr['msg'] = "请安装 mysqli 扩展!";
@@ -300,7 +300,6 @@ switch ($step) {
                     if (trim($sql) == '')
                         continue;
                     $sql = str_replace('`xf_', '`' . $dbPrefix, $sql);//替换表前缀
-                    $sql = str_replace('demo.crmeb.com', $_SERVER['SERVER_NAME'], $sql);//替换图片域名
                     $ret = mysqli_query($conn, $sql);
                     $message = '';
                     $arr = array('n' => $i, 'count' => $counts, 'msg' => $message, 'time' => date('Y-m-d H:i:s'));

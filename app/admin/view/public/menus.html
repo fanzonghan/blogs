@@ -2,16 +2,17 @@
     <div class="sidebar">
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="https://img2.woyaogexing.com/2023/07/15/65e0549adc5fdb17bf9d9dc92da9b0d9.jpg" class="img-circle" alt="User Image">
+                <img src="{$info.acatar}"
+                     class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-                <p>administrator</p>
+                <p>{$info.nickname}</p>
                 <a><i class="fa fa-circle text-success"></i>在线</a>
             </div>
         </div>
         <form action="#" method="get" class="sidebar-form">
             <div class="input-group">
-                <input type="text" name="q" class="form-control" placeholder="Search...">
+                <input type="text" name="q" class="form-control" placeholder="搜索...">
                 <span class="input-group-btn">
                             <a class="btn btn-flat"><i class="fa fa-search"></i></a>
                         </span>
@@ -192,5 +193,6 @@
             e.is(".treeview-menu");
         });
     }
+
     loadMenu();
 </script>

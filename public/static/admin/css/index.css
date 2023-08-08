@@ -61,7 +61,7 @@ a:hover,a:active,a:focus{outline:none;text-decoration:none;color:#72afd2}
 .user-panel:after{content: " ";display: table;}
 .user-panel:after{clear: both;}
 .user-panel > .image > img{width: 100%;max-width: 45px;height: auto;}
-.user-panel > .info{padding: 5px 5px 5px 15px;line-height: 1;position: absolute;left: 55px;top:0px;}
+.user-panel > .info{padding: 5px 5px 5px 15px;line-height: 1;position: absolute;left: 55px;top:10px;}
 .user-panel > .info > p{font-weight: 600;margin-bottom: 9px;}
 .user-panel > .info > a{text-decoration: none;padding-right: 5px;margin-top: 3px;font-size: 11px;}
 .user-panel > .info > a > .fa,

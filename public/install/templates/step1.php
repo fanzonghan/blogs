@@ -65,24 +65,7 @@
 </script>
 <script>
     console.log(`
-          CCCCCCCCCCCCC  RRRRRRRRRRRRRRRRR     MMMMMMMM               MMMMMMMM  EEEEEEEEEEEEEEEEEEEEEE  BBBBBBBBBBBBBBBBB
-       CCC::::::::::::C  R::::::::::::::::R    M:::::::M             M:::::::M  E::::::::::::::::::::E  B::::::::::::::::B
-     CC:::::::::::::::C  R::::::RRRRRR:::::R   M::::::::M           M::::::::M  E::::::::::::::::::::E  B::::::BBBBBB:::::B
-    C:::::CCCCCCCC::::C  RR:::::R     R:::::R  M:::::::::M         M:::::::::M  EE::::::EEEEEEEEE::::E  BB:::::B     B:::::B
-   C:::::C       CCCCCC    R::::R     R:::::R  M::::::::::M       M::::::::::M    E:::::E       EEEEEE    B::::B     B:::::B
-  C:::::C                  R::::R     R:::::R  M:::::::::::M     M:::::::::::M    E:::::E                 B::::B     B:::::B
-  C:::::C                  R::::RRRRRR:::::R   M:::::::M::::M   M::::M:::::::M    E::::::EEEEEEEEEE       B::::BBBBBB:::::B
-  C:::::C                  R:::::::::::::RR    M::::::M M::::M M::::M M::::::M    E:::::::::::::::E       B:::::::::::::BB
-  C:::::C                  R::::RRRRRR:::::R   M::::::M  M::::M::::M  M::::::M    E:::::::::::::::E       B::::BBBBBB:::::B
-  C:::::C                  R::::R     R:::::R  M::::::M   M:::::::M   M::::::M    E::::::EEEEEEEEEE       B::::B     B:::::B
-  C:::::C                  R::::R     R:::::R  M::::::M    M:::::M    M::::::M    E:::::E                 B::::B     B:::::B
-   C:::::C       CCCCCC  R::::R       R:::::R  M::::::M     MMMMM     M::::::M    E:::::E       EEEEEE    B::::B     B:::::B
-    C:::::CCCCCCCC::::C  RR:::::R     R:::::R  M::::::M               M::::::M  EE::::::EEEEEEEE:::::E  BB:::::BBBBBB::::::B
-     CC:::::::::::::::C  R::::::R     R:::::R  M::::::M               M::::::M  E::::::::::::::::::::E  B:::::::::::::::::B
-       CCC::::::::::::C  R::::::R     R:::::R  M::::::M               M::::::M  E::::::::::::::::::::E  B::::::::::::::::B
-          CCCCCCCCCCCCC  RRRRRRRR     RRRRRRR  MMMMMMMM               MMMMMMMM  EEEEEEEEEEEEEEEEEEEEEE  BBBBBBBBBBBBBBBBB
-
-  众邦科技 https://www.crmeb.com/
+  小范的技术博客 https://www.xiaofan.ink/
         `)
 </script>
 </html>

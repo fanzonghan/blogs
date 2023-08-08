@@ -6,6 +6,7 @@ namespace app\admin\middleware;
 use app\admin\AdminController;
 use think\exception\HttpResponseException;
 use think\facade\Cache;
+use think\facade\Log;
 
 /**
  * @description: 神兽保佑 永无bug
@@ -22,6 +23,7 @@ class AdminAuthMiddleware
         $gl_rule = [
             'login',
         ];
+        Log::error("rule：" . $request->rule()->getRule());
         if (!in_array($request->rule()->getRule(), $gl_rule)) {
             if (empty(Cache::get('adminInfo'))) {
                 $result = [
