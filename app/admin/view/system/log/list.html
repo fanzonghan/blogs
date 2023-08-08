@@ -1,40 +1,38 @@
 {extend name="base" /}
 {block name="main"}
-<div style="padding: 16px;">
-    <fieldset class="layui-elem-field">
-        <legend>搜索</legend>
-        <div class="layui-field-box">
-            <form class="layui-form layui-row layui-col-space16">
-                <div class="layui-col-md4" style="width: 280px">
-                    <div class="layui-input-wrap">
-                        <div class="layui-input-prefix">
-                            <i class="layui-icon layui-icon-username"></i>
-                        </div>
-                        <input type="text" name="keyword" value="" placeholder="输入ID/类型/ip进行搜索" class="layui-input">
+<fieldset class="layui-elem-field">
+    <legend>搜索</legend>
+    <div class="layui-field-box">
+        <form class="layui-form layui-row layui-col-space16">
+            <div class="layui-col-md4" style="width: 280px">
+                <div class="layui-input-wrap">
+                    <div class="layui-input-prefix">
+                        <i class="layui-icon layui-icon-username"></i>
                     </div>
+                    <input type="text" name="keyword" value="" placeholder="输入ID/类型/ip进行搜索" class="layui-input">
                 </div>
-                <div class="layui-col-md4" style="width: 180px">
-                    <div class="layui-input-wrap">
-                        <div class="layui-input-prefix">
-                            <i class="layui-icon layui-icon-username"></i>
-                        </div>
-                        <select name="type">
-                            <option value="">请选择分类</option>
-                            <option value="0">用户</option>
-                            <option value="1">管理员</option>
-                        </select>
+            </div>
+            <div class="layui-col-md4" style="width: 180px">
+                <div class="layui-input-wrap">
+                    <div class="layui-input-prefix">
+                        <i class="layui-icon layui-icon-username"></i>
                     </div>
+                    <select name="type">
+                        <option value="">请选择分类</option>
+                        <option value="0">用户</option>
+                        <option value="1">管理员</option>
+                    </select>
                 </div>
-                <div class="layui-col-md4">
-                    <div class="layui-input-wrap">
-                        <button class="layui-btn layui-btn-sm" lay-submit lay-filter="table-search">搜索</button>
-                    </div>
+            </div>
+            <div class="layui-col-md4">
+                <div class="layui-input-wrap">
+                    <button class="layui-btn layui-btn-sm" lay-submit lay-filter="table-search">搜索</button>
                 </div>
-            </form>
-        </div>
-    </fieldset>
-    <table class="layui-hide" id="test" lay-filter="test"></table>
-</div>
+            </div>
+        </form>
+    </div>
+</fieldset>
+<table class="layui-hide" id="test" lay-filter="test"></table>
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
         <button class="layui-btn layui-btn-sm" lay-event="refresh">刷新</button>
@@ -49,7 +47,7 @@
 {/block}
 {block name="js"}
 <script>
-    layui.use(['table', 'dropdown','form'], function () {
+    layui.use(['table', 'dropdown', 'form'], function () {
         var table = layui.table;
         var dropdown = layui.dropdown;
         var form = layui.form;
@@ -122,7 +120,7 @@
             }
         });
         // 搜索提交
-        form.on('submit(table-search)', function(data){
+        form.on('submit(table-search)', function (data) {
             var field = data.field; // 获得表单字段
             // 执行搜索重载
             table.reload('test', {

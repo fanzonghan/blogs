@@ -14,8 +14,11 @@
         $(function () {
             Canvas2();
         });
+
         function Canvas2() {
-            var randomScalingFactor = function () { return Math.round(Math.random() * 100) };
+            var randomScalingFactor = function () {
+                return Math.round(Math.random() * 100)
+            };
             var lineChartData = {
                 labels: ["星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"],
                 datasets: [
@@ -94,7 +97,8 @@
         <div style="float: right; width: 30%;">
             <div style="height: 221px; border: 1px solid #e6e6e6; background-color: #fff;">
                 <div class="panel panel-default">
-                    <div class="panel-heading"><i class="fa fa-area-chart fa-lg" style="padding-right: 5px;"></i>访问量</div>
+                    <div class="panel-heading"><i class="fa fa-area-chart fa-lg" style="padding-right: 5px;"></i>访问量
+                    </div>
                     <div class="panel-body">
                         <canvas id="Canvas2" style="height: 165px; width: 100%;"></canvas>
                     </div>
@@ -103,6 +107,9 @@
         </div>
     </div>
     <div class="rows" style="margin-bottom: 0.8%;">
+    </div>
+    <div style="position:fixed;bottom:5px;text-align: center;width: 100%;font-size: 13px">
+        小范的技术博客：<a href="https://www.xiaofan.ink" target="_blank">www.xiaofan.ink</a>
     </div>
 </div>
 <style>

@@ -1,6 +1,14 @@
 {extend name="base" /}
 {block name="main"}
 <table class="layui-hide" id="treeTable-demo"></table>
+
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="refresh">刷新</button>
+        <button class="layui-btn layui-btn-sm" lay-event="add">添加</button>
+    </div>
+</script>
+
 <script type="text/html" id="treeTable-demo-tools">
     <div class="layui-btn-container">
         <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="add">添加</a>
@@ -15,6 +23,7 @@
         var treeTable = layui.treeTable;
         treeTable.render({
             elem: '#treeTable-demo',
+            toolbar: '#toolbarDemo',
             url: 'list',
             maxHeight: '501px',
             cols: [[
@@ -29,6 +38,33 @@
             ]],
             page: true,
             skin: 'line', //表格风格
+        });
+        // 工具栏事件
+        table.on('toolbar(test)', function (obj) {
+            var id = obj.config.id;
+            var checkStatus = table.checkStatus(id);
+            var othis = lay(this);
+            switch (obj.event) {
+                case 'refresh':
+                    table.reload('test');
+                    break;
+                case 'add':
+                    layer.prompt({title: '添加'}, function(value, index, elem){
+                        if(value === '') return elem.focus();
+                        $.ajax('add', {
+                            type: 'post',
+                            data:{pid:0,name:value},
+                            success:function (res) {
+                                layer.close(index);
+                                treeTable.reload('treeTable-demo');
+                                layer.msg(res.msg)
+                            }
+                        })
+                    });
+                    break;
+                case 'LAYTABLE_TIPS':
+                    break;
+            }
         });
         // 触发单元格工具事件
         treeTable.on('tool(treeTable-demo)', function (obj) {
