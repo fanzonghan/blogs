@@ -29,22 +29,24 @@
         <div class="tzt-panel">
             <div class="tzt-panel_bd" id="article_list">
                 {foreach $article_list as $item}
-                <a href="/article/1" class="tzt-media-box" title="{$item.title}">
+                <div class="tzt-media-box">
                     <div class="tzt-media-box_hd">
-                        <h3 class="tzt-media-box_title">{$item.title}</h3>
-                        <div class="tzt-media-box_desc">
-                            {$item.articleDescription.description}
-                        </div>
-                        <div class="tzt-media-box_time">
-                            {$item.category.name}
-                            <span class="split-line"></span>
-                            {$item.add_time}
-                        </div>
+                        <a href="/article/{$item.id}" title="{$item.title}">
+                            <h3 class="tzt-media-box_title">{$item.title}</h3>
+                            <div class="tzt-media-box_desc">
+                                {$item.alias}
+                            </div>
+                            <div class="tzt-media-box_time">
+                                {$item.category.name}
+                                <span class="split-line"></span>
+                                {$item.add_time}
+                            </div>
+                        </a>
                     </div>
-                    <div class="tzt-media-box_bd">
+                    <div class="tzt-media-box_bd" style="{$item.img==''?'display: none':''}">
                         <img src="{$item.img}" alt="{$item.title}">
                     </div>
-                </a>
+                </div>
                 {/foreach}
             </div>
             <div class="tzt-panel_ft">
