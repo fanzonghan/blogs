@@ -37,6 +37,21 @@
     </div>
   </div>
   <div class="layui-form-item">
+    <div class="layui-form-item">
+      <label class="layui-form-label">封面图</label>
+      <div class="layui-upload-drag" id="update">
+        <div id="uploadMsg" class="{:sys_config('wechat_img','system')?'layui-hide':''}">
+          <i class="layui-icon"></i>
+          <p>点击上传，或将文件拖拽到此处</p>
+        </div>
+        <input id="surfacePlot" name="wechat_img" value="{:sys_config('wechat_img','system')}" hidden>
+        <div class="{:sys_config('wechat_img','system')?'':'layui-hide'}" id="uploadView">
+          <img src="{:sys_config('wechat_img','system')}" alt="上传成功后渲染" style="max-width: 196px">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="layui-form-item">
     <div class="layui-input-block">
       <button type="submit" class="layui-btn" lay-submit lay-filter="submit">立即提交</button>
     </div>

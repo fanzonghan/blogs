@@ -19,19 +19,33 @@
 {block name="main"}{/block}
 <div class="fixed m-hidden">
     <div class="page-bd">
-        <div class="tzt-player">
-            <div class="tzt-panel" style="padding:5px 10px 5px 10px">
-                {include file="/public/music"}
+        <div class="tzt-code">
+            <div class="tzt-panel" style="width: 380px;{:sys_config('url','music')?'':'display: none'}">
+                <div class="btn-audio clear">
+                    <img src="{:sys_config('img','music')}" alt=""
+                         style="width: 5.2rem;float: left">
+                    <div style="float: left">
+                        <p style="font-size: 1.2rem; color: #333;margin: 1rem 0 0.3rem 1.2rem;">
+                            {:sys_config('name','music')}</p>
+                        <p style="font-size: 1rem; color: #888; margin: 0 0 0 1.2rem">{:sys_config('name','music')}</p>
+                    </div>
+                    <img src="/static/image/music.png" alt=""
+                         style="width: 1rem;position: absolute;bottom: 0.5rem;right: 0.5rem;">
+                    <div class="mp3Box">
+                        <audio id="mp3Btn">
+                            <source src="{:sys_config('url','music')}" type="audio/mpeg"/>
+                        </audio>
+                    </div>
+                </div>
+            </div>
+            <div class="tzt-panel" style="{:sys_config('wechat_img','system')??'display: none'}">
+                <div class="tzt-panel_bd text-center">
+                    <p><img class="img-responsive" src="{:sys_config('wechat_img','system')}" alt="扫码可以加我微信哦"></p>
+                    <label>扫码可以加我微信哦</label>
+                </div>
             </div>
         </div>
     </div>
-<!--    <div class="page-bd">-->
-<!--        <div class="tzt-code">-->
-<!--            <div class="tzt-panel">-->
-<!--                {include file="/public/code"}-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
 </div>
 <footer class="footer">
     <div class="page-bd">
