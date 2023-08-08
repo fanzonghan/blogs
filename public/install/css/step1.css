@@ -7,7 +7,7 @@
     text-align: center;
     text-decoration: none;
     text-transform: uppercase;
-    background: linear-gradient(to right, #5afca8, #5a64fc, #5afca8, #5a64fc);
+    /*background: linear-gradient(to right, #5afca8, #5a64fc, #5afca8, #5a64fc);*/
     /* 背景渐变色大小 */
     background-size: 300%;
     box-shadow: none;
@@ -25,7 +25,7 @@
     right: -6px;
     border-radius: 60px;
     /* 背景渐变色 */
-    background: linear-gradient(to right, #5afca8, #5a64fc, #5afca8, #5a64fc);
+    /*background: linear-gradient(to right, #5afca8, #5a64fc, #5afca8, #5a64fc);*/
     /* 背景渐变色大小 */
     background-size: 300%;
     /* 元素的位置 底层或者顶层  -值表示底层 + 值表示顶层 */
@@ -91,9 +91,8 @@
 }
 
 .more-text {
-    background: linear-gradient(to right, #5afca8, #5a64fc, #5afca8, #5a64fc);
     -webkit-background-clip: text;
-    color: transparent;
+    color: #5A487D;
 }
 
 .agreement {
