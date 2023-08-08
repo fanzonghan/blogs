@@ -30,6 +30,10 @@ class ArticleServices extends BaseServices
         $list = $this->model->where('is_del', 0)->with(['category' => function ($query) {
             $query->visible(['name']);
         }, 'user'])->order('update_time desc')->where($where)->page($page, $limit)->select()->toArray();
+        foreach ($list as &$item) {
+            $item['add_time'] = date('Y-m-d H:i',$item['add_time']);
+            $item['update_time'] = date('Y-m-d H:i',$item['update_time']);
+        }
         $count = $this->model->where($where)->count();
         return ['list' => $list, 'total' => ceil($count / $limit)];
     }
@@ -53,6 +57,8 @@ class ArticleServices extends BaseServices
             $info['nickname'] = $info['user']['nickname'] ?? '';
             unset($info['articleDescription']);
             unset($info['user']);
+            $info['add_time'] = date('Y-m-d H:i',$info['add_time']);
+            $info['update_time'] = date('Y-m-d H:i',$info['update_time']);
             $info['tags'] = $TagModel->whereIn('id', $info['tag'])->field('name')->select()->toArray();
         } else {
             throw new Exception("文章不存在");
