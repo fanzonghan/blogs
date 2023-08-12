@@ -50,7 +50,7 @@
                 <p>点击上传，或将文件拖拽到此处</p>
             </div>
             <input id="surfacePlot" value="{$info.img}" hidden>
-            <div class="{$info.img??'layui-hide'}" id="uploadView">
+            <div id="uploadView" {$info.img?'':'hidden'}>
                 <img src="{$info.img}" alt="上传成功后渲染" style="max-width: 196px">
             </div>
         </div>
@@ -198,17 +198,15 @@
     }
     const editor = createEditor({
         selector: '#editor-container',
-        html: $('#description').val(),
+        html: `{$info.description|raw}`,
         config: editorConfig,
         mode: 'default', // or 'simple'
     });
 
-    const toolbarConfig = {};
-
     const toolbar = createToolbar({
         editor,
         selector: '#toolbar-container',
-        config: toolbarConfig,
+        config: {},
         mode: 'default', // or 'simple'
     });
     $('#add').click(function () {

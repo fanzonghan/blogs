@@ -8,7 +8,7 @@ Route::group(function () {
     Route::rule('home', 'Index/home');
     Route::get('logout', 'LoginController/logout');
     Route::get('clear', 'Index/clear');
-    Route::rule('info','Index/info');
+    Route::rule('user','Index/user');
 })->middleware(\app\admin\middleware\AdminAuthMiddleware::class);
 
 //文章

@@ -116,6 +116,14 @@
                 "F_FullName": "日志",//全名
                 "F_Icon": "fa fa-leaf",//图标
                 "F_UrlAddress": "/admin/system/log/list",//URL地址
+            },
+            {
+                "F_ModuleId": "m4-2",//模块ID
+                "F_ParentId": "M4",//父级ID
+                "F_EnCode": "WhUserInfo",//编码
+                "F_FullName": "个人中心",//全名
+                "F_Icon": "fa fa-leaf",//图标
+                "F_UrlAddress": "/admin/user",//URL地址
             }
         ];
         var _html = "";
@@ -123,9 +131,9 @@
             var row = data[i];
             if (row.F_ParentId == "0") {
                 if (i == 0) {
-                    _html += '<li class="treeview active">';
-                } else {
                     _html += '<li class="treeview">';
+                } else {
+                    _html += '<li class="treeview">';//全部展开
                 }
                 _html += '<a href="#">'
                 _html += '<i class="' + row.F_Icon + '"></i><span>' + row.F_FullName + '</span><i class="fa fa-angle-left pull-right"></i>'
@@ -134,7 +142,7 @@
                     return v.F_ParentId == row.F_ModuleId
                 });
                 if (childNodes.length > 0) {
-                    _html += '<ul class="treeview-menu">';
+                    _html += '<ul class="treeview-menu menu-open">';
                     $.each(childNodes, function (i) {
                         var subrow = childNodes[i];
                         var subchildNodes = $.learunindex.jsonWhere(data, function (v) {
@@ -166,14 +174,16 @@
             var d = $(this),
                 e = d.next();
             if (e.is(".treeview-menu") && e.is(":visible")) {
+                console.log('open')
                 e.slideUp(500, function () {
                     e.removeClass("menu-open")
                 }),
                     e.parent("li").removeClass("active")
             } else if (e.is(".treeview-menu") && !e.is(":visible")) {
-                var f = d.parents("ul").first(),
-                    g = f.find("ul:visible").slideUp(500);
-                g.removeClass("menu-open");
+                console.log('exit')
+                var f = d.parents("ul").first();
+                // var g = f.find("ul:visible").slideUp(500);
+                // g.removeClass("menu-open");
                 var h = d.parent("li");
                 e.slideDown(500, function () {
                     e.addClass("menu-open"),
