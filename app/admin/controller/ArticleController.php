@@ -93,6 +93,8 @@ class ArticleController extends AdminController
         $id = $request->get('id', 0);
         $info = $this->services->info($id);
         $this->assign('info', $info);
+//        $info['description'] = html_entity_decode($info['description']);
+        Log::error($info['description']);
         $tags = explode(',', $info['tag']);
         $tags = array_map('intval', $tags);
         $this->assign('tags', json_encode($tags, JSON_UNESCAPED_UNICODE));

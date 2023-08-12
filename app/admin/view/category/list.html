@@ -40,13 +40,13 @@
             skin: 'line', //表格风格
         });
         // 工具栏事件
-        table.on('toolbar(test)', function (obj) {
+        treeTable.on('toolbar(treeTable-demo)', function (obj) {
             var id = obj.config.id;
-            var checkStatus = table.checkStatus(id);
+            var checkStatus = treeTable.checkStatus(id);
             var othis = lay(this);
             switch (obj.event) {
                 case 'refresh':
-                    table.reload('test');
+                    treeTable.reload('treeTable-demo');
                     break;
                 case 'add':
                     layer.prompt({title: '添加'}, function(value, index, elem){
