@@ -93,6 +93,7 @@
     });
     layui.use(['form', 'upload'], function () {
         var form = layui.form;
+        var upload = layui.upload;
         //提交
         form.on('submit(formDemo)', function (data) {
             data.field.tags = value1.toString();
