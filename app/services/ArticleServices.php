@@ -89,6 +89,7 @@ class ArticleServices extends BaseServices
             return $res;
         } catch (\Exception $e) {
             Db::rollback();
+            Log::error($e->getLine());
             throw new ApiException("添加失败:" . $e->getMessage());
         }
     }
