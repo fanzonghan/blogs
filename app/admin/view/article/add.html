@@ -106,6 +106,9 @@
                 success:function (res) {
                     layer.msg(res.msg);
                     $(".layui-laypage-btn").click();
+                    if(res.code == 1){
+                        window.location.reload();
+                    }
                 },
                 error:function (err) {
                     layer.msg('系统开小车了');

@@ -18,8 +18,6 @@ class AdminAuthMiddleware
 {
     public function handle($request, \Closure $next)
     {
-        /** @var AdminController $AdminController */
-        $AdminController = app()->make(AdminController::class);
         $gl_rule = [
             'login',
         ];
@@ -36,7 +34,6 @@ class AdminAuthMiddleware
                 $response = view(app()->getRootPath() . '/xiaofan/tpl/dispatch_jump.tpl', $result);
                 throw new HttpResponseException($response);
             }
-            $AdminController->setAdminInfo(Cache::get('adminInfo'));
         }
         return $next($request);
     }

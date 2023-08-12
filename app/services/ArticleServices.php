@@ -84,6 +84,8 @@ class ArticleServices extends BaseServices
                 'description' => $did->id,
                 'tag' => $data['tags'],
                 'status' => 1,
+                'add_time'=>time(),
+                'update_time'=>time()
             ]);
             Db::commit();
             return $res;

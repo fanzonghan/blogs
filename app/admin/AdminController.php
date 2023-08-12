@@ -16,12 +16,14 @@ use xiaofan\basic\BaseController;
  */
 class AdminController extends BaseController
 {
-    protected $adminInfo;
+    private $adminInfo;
     public function __construct(App $app)
     {
         parent::__construct($app);
         $this->app     = $app;
         $this->request = $this->app->request;
+
+        $this->setAdminInfo(Cache::get('adminInfo'));
     }
 
     /**

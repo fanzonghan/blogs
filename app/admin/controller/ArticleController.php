@@ -53,7 +53,7 @@ class ArticleController extends AdminController
 //                'img' => 'required',
 //                'desc' => 'required',
 //            ]);
-            $res = $this->services->add($this->adminInfo['uid'], $post);
+            $res = $this->services->add($this->getAdminInfo()['uid'], $post);
             if ($res) {
                 return json(['code' => 1, 'msg' => '添加成功']);
             } else {
