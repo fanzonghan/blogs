@@ -45,14 +45,6 @@ class ArticleController extends AdminController
     {
         if ($request->isPost()) {
             $post = $request->post();
-//            $this->validate($post, [
-//                'title' => 'required',
-//                'alias' => 'required',
-//                'tags' => 'required',
-//                'category_id' => 'required|integer',
-//                'img' => 'required',
-//                'desc' => 'required',
-//            ]);
             $res = $this->services->add($this->getAdminInfo()['uid'], $post);
             if ($res) {
                 return json(['code' => 1, 'msg' => '添加成功']);
@@ -75,14 +67,6 @@ class ArticleController extends AdminController
     {
         if ($request->isPost()) {
             $post = $request->post();
-//            $this->validate($post, [
-//                'title' => 'required',
-//                'alias' => 'required',
-//                'tags' => 'required',
-//                'category_id' => 'required|integer',
-//                'img' => 'required',
-//                'desc' => 'required',
-//            ]);
             $res = $this->services->edit($post['id'], $post);
             if ($res) {
                 return json(['code' => 1, 'msg' => '修改成功']);

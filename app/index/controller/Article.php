@@ -30,9 +30,7 @@ class Article extends IndexController
         if (!$res) throw new Exception('文章不存在');
         \app\model\Article::where('id', $id)->update(['browse_num' => $res['browse_num'] + 1]);
         $relevant_list = [
-            ['id' => 1, 'title' => '开源一款简单好看的记账系统，支持APP-微信小程序-H5'],
-            ['id' => 2, 'title' => 'PHP利用时间函数mktime获取多种时间戳的方式'],
-            ['id' => 3, 'title' => '手把手教你用thinkphp+jwt做前后端分离'],
+//            ['id' => 1, 'title' => '开源一款简单好看的记账系统，支持APP-微信小程序-H5'],
         ];
         $this->assign('article_data', $res);
         $this->assign('relevant_list', $relevant_list);
