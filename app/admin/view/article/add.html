@@ -112,6 +112,19 @@
             })
             return false;
         });
+        //上传
+        upload.render({
+            elem: '#update'
+            , url: '/api/upload/uploads' //此处用的是第三方的 http 请求演示，实际使用时改成您自己的上传接口即可。
+            , field: 'upload-image'
+            , done: function (res) {
+                layer.msg('上传成功');
+                layui.$('#uploadView').removeClass('layui-hide').find('img').attr('src', res.data.url);
+                layui.$('#uploadMsg').addClass('layui-hide');
+                $('#surfacePlot').val(res.data.url);
+                console.log(res)
+            }
+        });
     });
     const {createEditor, createToolbar} = window.wangEditor;
 
