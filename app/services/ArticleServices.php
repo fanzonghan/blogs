@@ -116,6 +116,7 @@ class ArticleServices extends BaseServices
             if (isset($data['tags'])) $sava['tag'] = $data['tags'];
             if (isset($data['status'])) $sava['status'] = $data['status'] ?? 1;
             if (isset($data['is_del'])) $sava['is_del'] = $data['is_del'] ?? 0;
+            $sava['update_time'] = time();
             $res = $articleInfo->save($sava);
             Db::commit();
             return $res;
