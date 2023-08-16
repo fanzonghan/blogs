@@ -8,7 +8,7 @@ Route::group(function () {
     Route::rule('home', 'Index/home');
     Route::get('logout', 'LoginController/logout');
     Route::get('clear', 'Index/clear');
-    Route::rule('user','Index/user');
+    Route::rule('userSys','Index/user');
 })->middleware(\app\admin\middleware\AdminAuthMiddleware::class);
 
 //文章
@@ -81,4 +81,17 @@ Route::group('system', function () {
     //删除轮播图
     Route::get('banner/del', 'SystemController/banner_del');
 })->middleware(\app\admin\middleware\AdminAuthMiddleware::class);
+
+//用户管理
+Route::group('user', function () {
+    //列表
+    Route::rule('list', 'UserController/list');
+    //添加
+    Route::rule('add', 'UserController/add');
+    //编辑
+    Route::rule('edit', 'UserController/edit');
+    //删除
+    Route::get('del', 'UserController/del');
+})->middleware(\app\admin\middleware\AdminAuthMiddleware::class);
+
 Route::miss('Index/index')->middleware(\app\admin\middleware\AdminAuthMiddleware::class);
