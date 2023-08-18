@@ -16,7 +16,7 @@ class LogMiddleware
     public function handle($request, \Closure $next)
     {
         $SystemLogModel = new SystemLog();
-        if($request->isAjax()){
+//        if($request->isAjax()){
             $SystemLogModel->save([
                 'page' => $request->url(),
                 'type' => 0,
@@ -24,7 +24,7 @@ class LogMiddleware
                 'ip' => get_user_ip(),
                 'add_time' => time()
             ]);
-        }
+//        }
         return $next($request);
     }
 }
