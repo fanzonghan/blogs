@@ -6,6 +6,8 @@ namespace app\admin\controller;
 use app\admin\AdminController;
 use app\model\SystemConfig;
 use app\model\SystemLog;
+use DOMDocument;
+use think\facade\Log;
 use think\Model;
 use think\Request;
 
@@ -33,8 +35,9 @@ class SystemController extends AdminController
                 $query->where('type', $type);
             })->order('add_time desc')->page($page, $limit)->select();
             foreach ($list as &$item) {
-                $item['add_time'] = date('Y-m-d', $item['add_time']);
+                $item['add_time'] = date('Y-m-d H:i:s', $item['add_time']);
             }
+
             //总数
             $total = $SystemLog->when(!empty($keyword), function ($query) use ($keyword) {
                 $query->whereLike('id|page|ip', '%' . $keyword . '%');

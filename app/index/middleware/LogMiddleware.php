@@ -16,13 +16,15 @@ class LogMiddleware
     public function handle($request, \Closure $next)
     {
         $SystemLogModel = new SystemLog();
-        $SystemLogModel->save([
-            'page' => $request->url(),
-            'type' => 0,
-            'data' => json_encode($request->param(), JSON_UNESCAPED_UNICODE),
-            'ip' => get_user_ip(),
-            'add_time' => time()
-        ]);
+        if($request->isAjax()){
+            $SystemLogModel->save([
+                'page' => $request->url(),
+                'type' => 0,
+                'data' => json_encode($request->param(), JSON_UNESCAPED_UNICODE),
+                'ip' => get_user_ip(),
+                'add_time' => time()
+            ]);
+        }
         return $next($request);
     }
 }
