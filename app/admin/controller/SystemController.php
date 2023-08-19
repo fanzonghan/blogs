@@ -36,6 +36,7 @@ class SystemController extends AdminController
             })->order('add_time desc')->page($page, $limit)->select();
             foreach ($list as &$item) {
                 $item['add_time'] = date('Y-m-d H:i:s', $item['add_time']);
+                $item['location'] = !empty($item['location']) ? $item['location'] : '未知';
             }
 
             //总数
@@ -109,6 +110,7 @@ class SystemController extends AdminController
         }
         return json(['code' => 0, 'msg' => '修改失败']);
     }
+
     //轮播图删除
     public function banner_del(Request $request)
     {
