@@ -161,6 +161,7 @@ CREATE TABLE `xf_system_log`  (
   `type` tinyint(1) NOT NULL COMMENT '类型 0用户 1管理员',
   `data` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '请求数据',
   `ip` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'ip地址',
+  `location` varchar(255) DEFAULT NULL COMMENT '归属地',
   `add_time` int(11) NOT NULL COMMENT '时间',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;

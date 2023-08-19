@@ -79,8 +79,8 @@
                     }
                 },
                 {
-                    field: 'ip', title: '操作ip', width: 200, templet: function (res) {
-                        return res.ip + '（' + res.location + '）'
+                    field: 'ip', title: '操作ip', minWidth: 220, templet: function (res) {
+                        return res.ip + ' <span class="layui-badge layui-bg-gray">' + res.location + '</span>'
                     }
                 },
                 {field: 'add_time', title: '添加时间', width: 150},
