@@ -23,7 +23,10 @@ if(file_exists("./install/") && !file_exists("./install.lock")){
 }
 
 require __DIR__ . '/../vendor/autoload.php';
-
+//跨域
+header("Access-Control-Allow-Origin:*");
+header("Access-Control-Allow-Methods:GET, POST, OPTIONS, DELETE");
+header("Access-Control-Allow-Headers:*");
 // 执行HTTP应用并响应
 $http = (new App())->http;
 
