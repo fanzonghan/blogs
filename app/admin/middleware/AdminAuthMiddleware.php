@@ -21,9 +21,14 @@ class AdminAuthMiddleware
         $gl_rule = [
             'login',
         ];
+
         Log::error("rule：" . $request->rule()->getRule());
+
         if (!in_array($request->rule()->getRule(), $gl_rule)) {
-            if (empty(Cache::get('adminInfo'))) {
+            $sessionId = cookie('adminSessionId');
+            $adminInfo = Cache::get('adminInfo:' . $sessionId);
+
+            if (empty($adminInfo)) {
                 $result = [
                     'code' => 0,
                     'msg' => '未登录，请登陆',
@@ -31,10 +36,12 @@ class AdminAuthMiddleware
                     'url' => '/admin/login',
                     'wait' => 3,
                 ];
+
                 $response = view(app()->getRootPath() . '/xiaofan/tpl/dispatch_jump.tpl', $result);
                 throw new HttpResponseException($response);
             }
         }
+
         return $next($request);
     }
 }
