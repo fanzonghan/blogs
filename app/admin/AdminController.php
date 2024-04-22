@@ -23,7 +23,7 @@ class AdminController extends BaseController
         $this->app     = $app;
         $this->request = $this->app->request;
 
-        $this->setAdminInfo(Cache::get('adminInfo'));
+        $this->setAdminInfo(Cache::get('adminInfo:'.cookie('adminSessionId')));
     }
 
     /**

@@ -15,7 +15,7 @@ class Index extends AdminController
     //首页
     public function index()
     {
-        $this->assign('info', Cache::get('adminInfo'));
+        $this->assign('info', Cache::get('adminInfo:'.cookie('adminSessionId')));
         return $this->fetch();
     }
 
@@ -44,7 +44,7 @@ class Index extends AdminController
     public function user()
     {
         $AdminModel = new Admin();
-        $adminInfo = Cache::get('adminInfo');
+        $adminInfo = Cache::get('adminInfo:'.cookie('adminSessionId'));
         if ($this->request->isAjax()) {
             $param = $this->request->post();
             if (!isset($param['nickname']) || !isset($param['acatar']) || !isset($param['password']) || !isset($param['phone'])) {
