@@ -85,6 +85,10 @@ location / {
 后台地址：域名/admin
 用户页面地址：域名
 
+## 更新日志
+> 2024年4月22日 <br>
+> 修复登录鉴权出现的严重漏洞 <br>
+
 ### ThinkPHP6.0文档
 
 [完全开发手册](https://www.kancloud.cn/manual/thinkphp6_0/content)

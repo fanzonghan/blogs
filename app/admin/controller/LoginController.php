@@ -39,7 +39,10 @@ class LoginController extends AdminController
 
     public function logout()
     {
-        Cache::set('adminInfo', null);
+        $sessionId = cookie('adminSessionId');
+        Cache::delete('adminInfo:' . $sessionId); // 删除与该会话标识关联的管理员信息
+        cookie('adminSessionId', null); // 清除Cookie
+
         $this->success('已退出，请重新登录', [], '/admin/login');
     }
 }
