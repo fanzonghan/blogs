@@ -41,6 +41,7 @@ class AdminServices extends BaseServices
                     'nickname' => $userInfo['nickname'],
                     'account' => $userInfo['account'],
                     'password' => $userInfo['password'],
+                    'acatar'=>$userInfo['acatar']
                 ];
 
                 // 将会话标识与管理员信息关联并保存到缓存
